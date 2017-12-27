@@ -1,27 +1,46 @@
 <!doctype html>
 <style type="text/css">
 	#mainPopup {
-		padding: 10px;
-		height: 100px;
-		width: 400px;
+		
+        height: 180px;
+        width: 180px;
+
+
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+margin: 10px;
+
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
 	}
 	h1 {
 		font-size: 2em;
 	}
+    div {
+        text-align:center
+    }
+    button {
+        text-align: center;
+
+    }
+
 </style>
 
 <head>
     <script src="browser_action.js"></script>
     <script src="../../js/jquery-3.2.1.min.js"></script>
+
+    <script src="../../js/mdl/material.min.js"></script>
+    <link rel="stylesheet" href="../../js/mdl/material.min.css"></script>
 </head>
 
 <div id="mainPopup">
     <h1>Hello!</h1>
-    <button id="mainButton">Get page</button>
-    <div id="text-holder">
-        
-    </div>
+    <div id="main-button-div" class="mdl-dialog__content">
+        <button id="mainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Get page</button>
+    </div>    
+    <div id="text-holder" class="mdl-dialog__content"></div>
+    <div id="fill-button-div" class="mdl-dialog__content"></div>
 </div>
 
 

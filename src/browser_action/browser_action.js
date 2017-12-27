@@ -1,3 +1,5 @@
+var formDict = { bancochile:"https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login", 
+                 bancoestado: "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html" };
 
 function getPage(callback){
     
@@ -25,21 +27,33 @@ function getPage(callback){
     });
 }
 
-function getName(url){
-    
+function openForm(bank_name){
+    chrome.tabs.update({ url: formDict[bank_name] });
 }
 
+// Add lsitener for main button
 document.addEventListener('DOMContentLoaded', function() {
-    var link = document.getElementById('mainButton');
+    var mainButton = document.getElementById('mainButton');
     // onClick's logic below:
-    link.addEventListener('click', function() {
+    mainButton.addEventListener('click', function() {
         getPage( bank_name => {
           //console.log("banco", bank_name);
           $.getJSON("bancos.json", json => {
-                console.log(bank_name);
-                
+                //console.log(bank_name);
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].url  +"</p>";
+                // Open form to fill and add fill button     
+                openForm(bank_name);
+                document.getElementById("fill-button-div").innerHTML = "<button id='fillButton' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Fill form</button>";
+
+                // Add listener for fill button
+                var fillButton = document.getElementById('fillButton');
+                // onClick's logic below:
+                fillButton.addEventListener('click', function() {
+                    document.getElementById("text-holder").innerHTML = "<p>Completando formulario</p>";
+                });
             });
         });  
     });
 });
+
+
