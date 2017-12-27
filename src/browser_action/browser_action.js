@@ -14,6 +14,7 @@ function getPage(callback){
         //console.log(tabURL);
 
         // Identify URL matches
+        // TODO add new matches
         name = tabURL.match(/bancochile.cl|bancoestado.cl/)[0];
         name = name.split(/.cl/)[0];
         
@@ -33,14 +34,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // onClick's logic below:
     link.addEventListener('click', function() {
         getPage( bank_name => {
-                        console.log("banco", bank_name);
-          $.getJSON("bancos.json", function(json) {
+          //console.log("banco", bank_name);
+          $.getJSON("bancos.json", json => {
                 console.log(bank_name);
                 if (bank_name=="bancochile"){
                  document.getElementById("text-holder").innerHTML = "<p>"+ json.bancochile.name  +"</p>" + "<p>"+ json.bancochile.url  +"</p>";
                 }
                 else if (bank_name=="bancoestado"){
                  document.getElementById("text-holder").innerHTML = "<p>"+ json.bancoestado.name  +"</p>" + "<p>"+ json.bancoestado.url  +"</p>";
+                }
+                //TODO add bank
+                else if (){
+                 
                 }
             });
         });  
