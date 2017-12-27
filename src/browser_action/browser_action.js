@@ -37,16 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
           //console.log("banco", bank_name);
           $.getJSON("bancos.json", json => {
                 console.log(bank_name);
-                if (bank_name=="bancochile"){
-                 document.getElementById("text-holder").innerHTML = "<p>"+ json.bancochile.name  +"</p>" + "<p>"+ json.bancochile.url  +"</p>";
-                }
-                else if (bank_name=="bancoestado"){
-                 document.getElementById("text-holder").innerHTML = "<p>"+ json.bancoestado.name  +"</p>" + "<p>"+ json.bancoestado.url  +"</p>";
-                }
-                //TODO add bank
-                else if (){
-                 
-                }
+                
+                document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].url  +"</p>";
             });
         });  
     });
