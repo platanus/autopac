@@ -17,25 +17,19 @@
     "persistent": false
   },
   "options_page": "src/options/index.html",
-  "browser_action": {
+  "page_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser action demo",
+    "default_title": "browser/page action demo",
     "default_popup": "src/browser_action/browser_action.html"
   },
   "permissions": [
     "cookies",
     "notifications",
-    "tabs"
+    "tabs",
+    "declarativeContent",
+    "activeTab" 
   ],
   "content_scripts": [
-    {
-      "matches": [
-        "https://www.google.com/*"
-      ],
-      "css": [
-        "src/inject/inject.css"
-      ]
-    },
     {
       "matches": [
         "https://www.google.com/*"

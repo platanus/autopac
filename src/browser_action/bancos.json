@@ -1,0 +1,12 @@
+{
+    "bancochile":
+    {
+        "name": "Banco de Chile",
+        "url": "www.bancochile.cl" 
+    },
+    "bancoestado":
+    {
+        "name": "Banco Estado",
+        "url": "www.bancoestado.cl"
+    }
+}
