@@ -16,7 +16,7 @@ chrome.runtime.onInstalled.addListener(function() {
             pageUrl: { urlMatches: '(bancoestado.cl|bancochile.cl)' },
           })
         ],
-        // Activate exetnsion actions
+        // Activate extension actions
         actions: [ new chrome.declarativeContent.ShowPageAction() ]
       }
     ]);
