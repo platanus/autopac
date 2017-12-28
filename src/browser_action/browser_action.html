@@ -5,14 +5,25 @@
         height: 180px;
         width: 180px;
 
-
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
-margin: 10px;
 
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
 	}
+    #appinfo {
+        background-color: #ff4081;
+        border: 0;
+        color: #FFFFFF;
+        display: block;
+        font-size: 85%;
+        line-height: 1.2;
+        margin: 0;
+        padding: calc(0.1em + 1px) 0;
+        position: relative;
+        text-align: center;
+    }
+
 	h1 {
 		font-size: 2em;
 	}
@@ -34,13 +45,17 @@ margin: 10px;
     <link rel="stylesheet" href="../../js/mdl/material.min.css"></script>
 </head>
 
-<div id="mainPopup">
-    <h1>Hello!</h1>
-    <div id="main-button-div" class="mdl-dialog__content">
-        <button id="mainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Get page</button>
-    </div>    
-    <div id="text-holder" class="mdl-dialog__content"></div>
-    <div id="fill-button-div" class="mdl-dialog__content"></div>
-</div>
+<body>
+    <span id="appinfo"><span id="appname">Autopac</span> <span id="version">0.0.0</span></span>
+
+    <div id="mainPopup">
+        <h1>Hello!</h1>
+        <div id="main-button-div" class="mdl-dialog__content">
+            <button id="mainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Get page</button>
+        </div>    
+        <div id="text-holder" class="mdl-dialog__content"></div>
+        <div id="fill-button-div" class="mdl-dialog__content"></div>
+    </div>
+</body>
 
 

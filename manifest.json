@@ -1,8 +1,8 @@
 {
-  "name": "CHANGE THIS : TODO",
+  "name": "Autopac",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "Super extension",
+  "description": "Put description here",
   "homepage_url": "http://google.com",
   "icons": {
     "16": "icons/icon16.png",
@@ -27,16 +27,24 @@
     "notifications",
     "tabs",
     "declarativeContent",
-    "activeTab" 
+    "activeTab",
+    "http://*/*",
+    "https://*/*" 
   ],
   "content_scripts": [
     {
       "matches": [
-        "https://www.google.com/*"
+        "http://*/*",
+        "https://*/*" 
       ],
       "js": [
         "src/inject/inject.js"
+      ],
+      "css" : [
+        "src/inject/inject.css",
+        "js/mdl/material.min.css"
       ]
     }
-  ]
+  ],
+  "web_accessible_resources": ["js/mdl/material.min.css","src/inject/aux_fun.js"]
 }

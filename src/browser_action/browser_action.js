@@ -28,6 +28,7 @@ function getPage(callback){
 }
 
 function openForm(bank_name){
+    // Open in the same tab the form to fill
     chrome.tabs.update({ url: formDict[bank_name] });
 }
 
@@ -41,15 +42,21 @@ document.addEventListener('DOMContentLoaded', function() {
           $.getJSON("bancos.json", json => {
                 //console.log(bank_name);
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].url  +"</p>";
-                // Open form to fill and add fill button     
+                // Open form to fill in the same tab  
                 openForm(bank_name);
+
+
+
+
                 document.getElementById("fill-button-div").innerHTML = "<button id='fillButton' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Fill form</button>";
 
                 // Add listener for fill button
                 var fillButton = document.getElementById('fillButton');
                 // onClick's logic below:
-                fillButton.addEventListener('click', function() {
+                fillButton.addEventListener('click', function(tab) {
                     document.getElementById("text-holder").innerHTML = "<p>Completando formulario</p>";
+                        chrome.tabs.executeScript(null, {file: "src/js/jquery-3.2.1.min.js"});
+                        chrome.tabs.executeScript(null, {file: "src/browser_action/inject_button.js" });
                 });
             });
         });  
