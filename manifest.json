@@ -41,10 +41,9 @@
         "src/inject/inject.js"
       ],
       "css" : [
-        "src/inject/inject.css",
-        "js/mdl/material.min.css"
+        "src/inject/inject.css"
       ]
     }
   ],
-  "web_accessible_resources": ["js/mdl/material.min.css","src/inject/aux_fun.js"]
+  "web_accessible_resources": ["src/inject/aux_fun.js", "src/inject/bancochile.js" ]
 }

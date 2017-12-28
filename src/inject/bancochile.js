@@ -4,14 +4,14 @@ Script para autollenar el formulario de transferencias programadas de la pagina 
 
 // Script parameters 
 //TODO get params from extension
-var monto = 50000;
+var monto = 666;
 var rutDestinatario = "8.199.935-k";
 
 // Angularjs scope's objects used 
 var scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
 var tef = scopeForm.tef; // TransferenciasTercerosCtrl
 var tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
-var scopeDest = angular.element($('destinatario')).scope();
+var scopeDest = angular.element($('#destinatario')).scope();
 
 // Derived used variables
 var destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
@@ -67,5 +67,3 @@ function findDestinatarioByRUT(rut, destinatarios) {
     return destinatarios.find( d => { return strip(rut) == strip(d.rut) } )
 }
 
-//MAIN
-autofillForm();

@@ -1,4 +1,5 @@
-var formDict = { bancochile:"https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login", 
+var formDict = { bancochile: "https://portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html#/transferencias/terceros",
+                //bancochile:"https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login", 
                  bancoestado: "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html" };
 
 function getPage(callback){
