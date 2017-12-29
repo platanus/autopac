@@ -12,7 +12,8 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "src/bg/background.js"
+      "src/bg/background.js",
+      "js/jquery-3.2.1.min.js"
     ],
     "persistent": false
   },
@@ -20,7 +21,7 @@
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser/page action demo",
-    "default_popup": "src/browser_action/browser_action.html"
+    "default_popup": "src/browser_action/bank_action.html"
   },
   "permissions": [
     "cookies",
