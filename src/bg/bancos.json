@@ -10,11 +10,5 @@
         "name": "Banco Estado",
         "domain": "bancoestado.cl",
         "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
-    },
-    "fintual":
-    {
-        "name": "FINTUAL",
-        "domain": "fintual.cl",
-        "form_url": "l"
     }
 }
