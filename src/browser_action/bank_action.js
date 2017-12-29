@@ -10,7 +10,7 @@ function getPage(callback){
         tabURL = tabs[0].url;
         tabTitle = tabs[0].title;
         //console.log(tabURL);
-       $.getJSON('bancos.json', json => {
+       $.getJSON('active_pages.json', json => {
             var array_exp = new Array(); 
             for (var name in json) {
                 array_exp.push(json[name].domain);                
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     mainButton.addEventListener('click', function() {
         getPage( bank_name => {
           //console.log("banco", bank_name);
-          $.getJSON("bancos.json", json => {
+          $.getJSON("active_pages.json", json => {
 
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";
                 // Open form to fill in the same tab  
