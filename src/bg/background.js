@@ -4,34 +4,29 @@
 //     "sample_setting": "This is how you use Store.js to remember values"
 // });
 
+function getMatches(callback){
+  var matches;
+  $.getJSON('src/browser_action/bancos.json', json => {
+    var array_exp = new Array(); 
+    for (var name in json) {
+     array_exp.push(json[name].domain);                
+    }
+    var matches = array_exp.join("|");
 
+    //console.log(regex);
 
-    
-    var name;
-       $.getJSON('bancos.json', json => {
-            var array_exp = new Array(); 
-            for (var name in json) {
-                array_exp.push(json[name].domain);                
-            }
-          
+    //document.getElementById("text-holder").innerHTML = name;
+    if (callback) {
+      callback(matches)        
+    }
 
-
-            // Identify URL matches
-            name = array_exp.join("|");
-            //console.log("asd");
-
-            //document.getElementById("text-holder").innerHTML = name;
-            if (callback) {
-                callback(name)        
-            }
-
-        });
-
-
-
+  });
+}
 
 chrome.runtime.onInstalled.addListener(function() {
   // Replace all rules
+  var matches ;
+  getMatches(matches) ;
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
 
   //matchedUrl(matches => {
@@ -40,8 +35,7 @@ chrome.runtime.onInstalled.addListener(function() {
         // Match pages
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { urlMatches: '(bancoestado.cl|bancochile.cl)' }
-            //pageUrl: { urlMatches: matches },
+            pageUrl: { urlMatches: matches}
           })
         ],
         // Activate extension actions
