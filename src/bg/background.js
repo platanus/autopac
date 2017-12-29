@@ -12,14 +12,9 @@ function getMatches(callback){
      array_exp.push(json[name].domain);                
     }
     var matches = array_exp.join("|");
-
-    //console.log(regex);
-
-    //document.getElementById("text-holder").innerHTML = name;
     if (callback) {
       callback(matches)        
     }
-
   });
 }
 
@@ -28,8 +23,6 @@ chrome.runtime.onInstalled.addListener(function() {
   var matches ;
   getMatches(matches) ;
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-
-  //matchedUrl(matches => {
     chrome.declarativeContent.onPageChanged.addRules([
       {
         // Match pages
@@ -43,7 +36,6 @@ chrome.runtime.onInstalled.addListener(function() {
       }
     ]);
   });
-  //});
 });
 
 //example of using a message handler from the inject scripts
