@@ -39,17 +39,21 @@ chrome.runtime.onInstalled.addListener(function() {
 });
 
 // React when a browser action's icon is clicked.
-/*
-chrome.pageAction.onClicked.addListener(function() {
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  var myTab = tabs[0];
-  if (myTab) { // Sanity check
-    chrome.pageAction.setPopup({myTab, popup: 'src/browser_action/bank_action.html'})
-  }
+
+chrome.tabs.onUpdated.addListener(function() {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+      var myTab = tabs[0];
+
+      if (myTab.url.match(/fintual/)) { // Sanity check
+        chrome.pageAction.setPopup({tabId: myTab.id, popup: 'src/browser_action/fintual_action.html'});
+      }
+      else {
+        chrome.pageAction.setPopup({tabId: myTab.id, popup: 'src/browser_action/bank_action.html'});
+      }
+
+    });
 });
 
-});
-*/
 
 
 //example of using a message handler from the inject scripts

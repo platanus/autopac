@@ -20,8 +20,7 @@
   "options_page": "src/options/index.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser/page action demo",
-    "default_popup": "src/browser_action/bank_action.html"
+    "default_title": "browser/page action demo"
   },
   "permissions": [
     "cookies",
