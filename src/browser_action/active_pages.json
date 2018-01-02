@@ -3,19 +3,26 @@
     {
         "name": "Banco de Chile",
         "domain": "bancochile.cl", 
+<<<<<<< HEAD:src/browser_action/bancos.json
         "form_url": "https://portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html#/transferencias/terceros",
         "login_url": "https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login"
+=======
+        "form_url": "https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login",
+        "type": "banco"
+>>>>>>> fintual_popup:src/browser_action/active_pages.json
     },
     "bancoestado":
     {
         "name": "Banco Estado",
         "domain": "bancoestado.cl",
-        "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
+        "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html",
+        "type": "externo"
     },
     "fintual":
     {
         "name": "FINTUAL",
         "domain": "fintual.cl",
-        "form_url": "l"
+        "form_url": "l",
+        "type": "externo"
     }
 }
