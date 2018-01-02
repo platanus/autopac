@@ -1,4 +1,5 @@
 
+console.log("inject button!!!");
 
 var tmp = document.createElement('div');
 tmp.className = "autopac-fixed-div";
