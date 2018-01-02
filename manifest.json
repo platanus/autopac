@@ -44,6 +44,14 @@
         "src/inject/inject.css",
         "js/mdl/material.min.css"
       ]
+    },
+    {
+      "matches": [
+        "https://login.bancochile.cl/*" 
+      ],
+      "js": [
+        "src/browser_action/inject_button.js"
+      ]
     }
   ],
   "web_accessible_resources": ["src/inject/aux_fun.js"]
