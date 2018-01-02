@@ -3,7 +3,8 @@
     {
         "name": "Banco de Chile",
         "domain": "bancochile.cl", 
-        "form_url": "https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login"
+        "form_url": "https://portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html#/transferencias/terceros",
+        "login_url": "https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login"
     },
     "bancoestado":
     {

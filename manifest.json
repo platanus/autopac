@@ -13,7 +13,7 @@
   "background": {
     "scripts": [
       "src/bg/background.js",
-      "js/jquery-3.2.1.min.js"
+      "js/jquery-3.2.1.min.js"    
     ],
     "persistent": false
   },
@@ -46,9 +46,5 @@
       ]
     }
   ],
-<<<<<<< HEAD
-  "web_accessible_resources": ["src/inject/aux_fun.js", "src/inject/bancochile.js" ]
-=======
   "web_accessible_resources": ["src/inject/aux_fun.js"]
->>>>>>> fintual_popup
 }

@@ -2,40 +2,58 @@
 Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
 */
 
-// Script parameters 
+
+/***************** 
+// Initial transferencia interface
+transferencia 
+{
+monto
+usuario
+usuarioD
+cuentaOrigen
+cuentaDestinatario
+
+programacion:
+    frecuencia:
+    inicio
+    fin
+    indefinida
+}
+***************** */
+
 //TODO get params from extension
-var monto = 666;
-var rutDestinatario = "8.199.935-k";
+var transferencia = {
+    origen = {},
+    destinatario,
+    monto = 5000,
+    rut_destinatario = "8.199.935-k"
+}
 
-// Angularjs scope's objects used 
-var scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
-var tef = scopeForm.tef; // TransferenciasTercerosCtrl
-var tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
-var scopeDest = angular.element($('#destinatario')).scope();
+//Initialize form data
+function init() {
+    // Angularjs scope's objects used 
+    var scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
+    var tef = scopeForm.tef; // TransferenciasTercerosCtrl
+    var tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
+    var scopeDest = angular.element($('#destinatario')).scope();
 
-// Derived used variables
-var destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
+    // Derived used variables
+    var destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
+}
 
 
 // auto fills the form
-function autofillForm() {
-    fillStep1();
-    fillStep2();
-}
+function autofillForm(transferencia) {
 
-// Datos de la Transferencia
-function fillStep1() {
-    fillDestinatario();
-    fillMonto();
-}
-// ¿Cuándo deseas realizar la Transferencia?
-function fillStep2() {
+    //Step 1 : Datos de la Transferencia
+    fillDestinatario(transferencia.rut_destinatario, destinatarios);
+    fillMonto(transferencia.monto);
+    // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
-    triggerProgramar();
-
+    triggerProgramar()
 }
 
-function fillDestinatario() {
+function fillDestinatario(rutDestinatario) {
     let destinatario = findDestinatarioByRUT(rutDestinatario, destinatarios)
     if (destinatario) {
         scopeDest.$select.select(destinatario) // trigger select
@@ -45,7 +63,7 @@ function fillDestinatario() {
     }
 }
 
-function fillMonto() {
+function fillMonto(monto) {
     // apply changes to model 
     scopeForm.$apply( () => { 
         scopeForm.tef.monto = String(monto); 
@@ -63,7 +81,16 @@ function triggerProgramar() {
 
 // Encuentra al destinatario por su RUT en la lista de destinatarios
 function findDestinatarioByRUT(rut, destinatarios) {
-    var strip = s => { return String(s).replace(/\D/g, '')} // comparar solo por digitos
-    return destinatarios.find( d => { return strip(rut) == strip(d.rut) } )
+    var strip = s => { return String(s).replace(/\D/g, '')}; // comparar solo por digitos
+    return destinatarios.find( d => { return strip(rut) == strip(d.rut) } );
 }
 
+
+//Init script 
+(function main(){
+    console.log("init")
+    //init variables when page is loaded
+    // document.addEventListener('DOMContentLoaded', init);
+    document.addEventListener('load', init);
+
+})();
