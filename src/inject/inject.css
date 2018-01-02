@@ -2,11 +2,7 @@
  * Place your custom CSS styles here.
  **/
 
-<<<<<<< HEAD
-.autopac-fixed {
-=======
 .autopac-fixed-div {
->>>>>>> fintual_popup
     background: rgba(200, 54, 54, 0.1) !important;
 
     position: fixed !important;
