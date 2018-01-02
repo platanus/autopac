@@ -32,7 +32,7 @@ function getPage(callback){
 function openForm(bank_form){
     // Open in the same tab the form to fill
     //TODO do not reload page if called from the current bank_form url
-    chrome.tabs.update({ url: bank_form });
+    //chrome.tabs.update({ url: bank_form });
 }
 
 // Add lsitener for main button
