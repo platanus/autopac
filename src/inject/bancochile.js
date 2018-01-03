@@ -62,7 +62,9 @@ function init() {
 }
 
 // auto fills the form
-function fillForm(transferencia) {
+// function fillForm(transferencia) {
+function fillForm() {
+
     //Step 1 : Datos de la Transferencia
     fillDestinatario(transferencia.rut_destinatario);
     fillMonto(transferencia.monto);
@@ -170,8 +172,11 @@ function waitFrecuenciaTransferencias() {
 
 window.addEventListener("load", function(event) {
     setTimeout( () => {
+        console.log("init")
+        var fillBtn = document.getElementById('fillForm');
+        fillBtn.addEventListener('click', fillForm);
         init();
-        fillForm(transferencia);
-    }, 2000);
+        // fillForm(transferencia);
+    }, 2000); //TODO get rid of timer and listen to load status
 });
 

@@ -43,5 +43,5 @@
       ]
     } 
   ],
-  "web_accessible_resources": ["src/inject/bancochile.js"]
+  "web_accessible_resources": ["src/inject/bancochile.js", "src/browser_action/inject_button.js"]
 }

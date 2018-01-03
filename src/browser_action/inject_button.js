@@ -6,11 +6,13 @@ fillBtn.innerHTML = `<button id='fillForm'
                          mdl-js-button 
                          mdl-button--raised 
                          mdl-js-ripple-effect 
-                         mdl-button--accent'>
+                         mdl-button--accent'
+                         style='position: fixed;
+                         bottom: 0;
+                         right: 10;'>
                     Fill form
                  </button>`;
 
-fillBtn.addEventListener('click', window.autoFill)
 document.body.insertBefore(fillBtn, document.body.childNodes[0]);
 
 
