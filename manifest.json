@@ -39,9 +39,13 @@
         "https://portalpersonas.bancochile.cl/*"
       ],
       "js": [
-        "src/inject/bancochile_inject.js"
+        "src/inject/fillBtn_inject.js",
+        "src/inject/bancochile_inject.js"      
       ]
     } 
   ],
-  "web_accessible_resources": ["src/inject/bancochile.js", "src/browser_action/inject_button.js"]
+  "web_accessible_resources": [
+    "src/inject/bancochile.js", 
+    "src/inject/fillBtn.js"
+  ]
 }
