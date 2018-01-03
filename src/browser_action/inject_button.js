@@ -1,9 +1,18 @@
 
-console.log("inject button!!!");
+var fillBtn = document.createElement('div');
+fillBtn.className = "autopac-fixed-div";
+fillBtn.innerHTML = `<button id='fillForm' 
+                         class='mdl-button 
+                         mdl-js-button 
+                         mdl-button--raised 
+                         mdl-js-ripple-effect 
+                         mdl-button--accent'>
+                    Fill form
+                 </button>`;
 
-var tmp = document.createElement('div');
-tmp.className = "autopac-fixed-div";
+fillBtn.addEventListener('click', window.autoFill)
+document.body.insertBefore(fillBtn, document.body.childNodes[0]);
 
-tmp.innerHTML = "<button id='fillForm' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' onclick='fillForm()'>Fill form</button>";
-document.body.insertBefore(tmp, document.body.childNodes[0]);
+
+
 

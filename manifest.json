@@ -32,27 +32,16 @@
     "https://*/*" 
   ],
   "content_scripts": [
+
     {
       "matches": [
-        "http://*/*",
-        "https://*/*" 
+        "https://login.bancochile.cl/*",
+        "https://portalpersonas.bancochile.cl/*"
       ],
       "js": [
-        "src/inject/inject.js"
-      ],
-      "css" : [
-        "src/inject/inject.css",
-        "js/mdl/material.min.css"
+        "src/inject/bancochile_inject.js"
       ]
-    },
-    {
-      "matches": [
-        "https://login.bancochile.cl/*" 
-      ],
-      "js": [
-        "src/browser_action/inject_button.js"
-      ]
-    }
+    } 
   ],
-  "web_accessible_resources": ["src/inject/aux_fun.js"]
+  "web_accessible_resources": ["src/inject/bancochile.js"]
 }
