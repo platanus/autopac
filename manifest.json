@@ -1,5 +1,6 @@
 {
   "name": "Autopac",
+  "short_name": "Autopac", 
   "version": "0.0.2",
   "manifest_version": 2,
   "description": "Put description here",
@@ -34,23 +35,17 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*" 
+        "https://login.bancochile.cl/*",
+        "https://www.santander.cl/*" ,
+        "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/inject/inject.js", 
+        "src/browser_action/inject_button.js"
       ],
       "css" : [
         "src/inject/inject.css",
         "js/mdl/material.min.css"
-      ]
-    },
-    {
-      "matches": [
-        "https://login.bancochile.cl/*" 
-      ],
-      "js": [
-        "src/browser_action/inject_button.js"
       ]
     }
   ],

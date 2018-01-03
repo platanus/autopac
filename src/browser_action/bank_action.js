@@ -9,7 +9,6 @@ function getPage(callback){
     }, function(tabs) {
         tabURL = tabs[0].url;
         tabTitle = tabs[0].title;
-        //console.log(tabURL);
        $.getJSON('active_pages.json', json => {
             var array_exp = new Array(); 
             for (var name in json) {
@@ -20,7 +19,7 @@ function getPage(callback){
             // Identify URL matches(banks domain) 
             name = tabURL.match(regex)[0];
             name = name.split(/.cl/)[0];
-
+            //console.log(name);
             if (callback) {
                 callback(name)        
             }
@@ -40,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // onClick's logic below:
     mainButton.addEventListener('click', function() {
         getPage( bank_name => {
-          //console.log("banco", bank_name);
+          console.log("banco", bank_name);
           $.getJSON("active_pages.json", json => {
 
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";

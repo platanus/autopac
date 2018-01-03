@@ -27,7 +27,7 @@ function getNonBanks(callback){
         }              
     }
     nonBanks = array_exp.join("|");
-    console.log(nonBanks);
+    //console.log(nonBanks);
     if (callback) {
       callback(nonBanks)        
     }
@@ -54,7 +54,7 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
-// React when a browser action's icon is clicked.
+// React when open or refresh a tab
 
 chrome.tabs.onUpdated.addListener(function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {

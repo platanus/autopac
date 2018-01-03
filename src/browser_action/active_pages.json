@@ -13,6 +13,13 @@
         "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html",
         "type": "externo"
     },
+    "santander":
+    {
+        "name": "Banco Santander",
+        "domain": "santander.cl",
+        "form_url": "https://www.santander.cl/transa/segmentos/Menu/view.asp",
+        "type": "banco"
+    },
     "fintual":
     {
         "name": "FINTUAL",
