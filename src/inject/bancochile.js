@@ -70,8 +70,11 @@ function fillForm(transferencia) {
     fillMonto(transferencia.monto);
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
-    triggerProgramar();
-    programarFrecuencia(transferencia.programacion);
+    waitStep1().then( () => {
+        console.log("step1")
+        triggerProgramar();
+        programarFrecuencia(transferencia.programacion);
+    });
 }
 
 function fillDestinatario(rutDestinatario) {
@@ -101,23 +104,25 @@ function triggerProgramar() {
 }
 
 function programarFrecuencia(programacion) {
-    let freq = findFreqElement(programacion.nombre, tef.frecuencias)
-    scopeForm.$apply( () => { 
-        tef.frecuencia.selected = tef.frecuencias[2]; 
-    });
+    waitFrecuenciaTransferencias().then( ()=>{
+        let freq = findFreqElement(programacion.nombre, tef.frecuencias)
+        scopeForm.$apply( () => { 
+            tef.frecuencia.selected = freq; 
+        });
 
-    if (programacion.inicio) {
-        document.getElementById("fechaInicioInput").value = programacion.inicio;
-        scopeForm.$apply( () => { 
-            tef.fechaInicio = new Date("3-5-2019"); 
-        });
-    }
-    if (programacion.fin) {
-        document.getElementById("fechaTerminoInput").value = programacion.fin;
-        scopeForm.$apply( () => { 
-            tef.fechaTermino = new Date("3-5-2020"); 
-        });
-    }
+        if (programacion.inicio) {
+            document.getElementById("fechaInicioInput").value = programacion.inicio;
+            scopeForm.$apply( () => { 
+                tef.fechaInicio = new Date("3-5-2019"); 
+            });
+        }
+        if (programacion.fin) {
+            document.getElementById("fechaTerminoInput").value = programacion.fin;
+            scopeForm.$apply( () => { 
+                tef.fechaTermino = new Date("3-5-2020"); 
+            });
+        }
+    });
 }
 
 // Encuentra al destinatario por su RUT en la lista de destinatarios
@@ -157,3 +162,23 @@ function findFreqElement(nombre, freqList) {
 //     // document.body.insertBefore(fillBtn, document.body.childNodes[0]);
 
 // })();
+
+function waitStep1() {
+    return new Promise( function(resolve, reject) {
+        var checkFlag = () => {
+            tef.step1 ? resolve() : setTimeout(checkFlag, 100);
+        }
+        checkFlag();
+    });
+}
+
+function waitFrecuenciaTransferencias() {
+    return new Promise( function(resolve, reject) {
+        var checkFlag = () => {
+            tef.frecuencias ? resolve() : setTimeout(checkFlag, 100);
+        }
+        checkFlag();
+    });
+}
+
+
