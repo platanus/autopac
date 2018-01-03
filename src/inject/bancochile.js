@@ -23,8 +23,6 @@ programacion:
 }
 ***************** */
 
-console.log('bancochile inject init')
-
 //TODO get params from extension
 var transferencia = {
     origen: {},
@@ -32,9 +30,9 @@ var transferencia = {
     monto: 5000,
     rut_destinatario: "8.199.935-k",
     programacion: {
-        inicio: "14-01-2018",
-        fin: "11-01-2019",
-        nombre: "MENSUAL"
+        fechaInicio: "12-02-2018",
+        fechaTermino: "05-09-2019",
+        frecuencia: "MENSUAL"
     }
 }
 
@@ -55,12 +53,12 @@ function init() {
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
     tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
     scopeDest = angular.element($('#destinatario')).scope();
+    destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
     // frecuencia select
     freqDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")][3];
     scopeFreq = angular.element(freqDOM).scope();
     freqItems = tef.frecuencias;
     // Derived used variables
-    destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
 }
 
 // auto fills the form
@@ -71,7 +69,6 @@ function fillForm(transferencia) {
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
     waitStep1().then( () => {
-        console.log("step1")
         triggerProgramar();
         programarFrecuencia(transferencia.programacion);
     });
@@ -98,6 +95,9 @@ function fillMonto(monto) {
 
 function triggerProgramar() {
         // get "Programar" radial button
+        // scopeForm.$apply( () => { 
+        //     tef.programada = true; 
+        // });
         var programarBtn = [...document.getElementsByClassName("bch-custom-check radiobutton")]
                                 .find( e => e.innerText.includes('Programar'));
         programarBtn.click();
@@ -105,23 +105,36 @@ function triggerProgramar() {
 
 function programarFrecuencia(programacion) {
     waitFrecuenciaTransferencias().then( ()=>{
-        let freq = findFreqElement(programacion.nombre, tef.frecuencias)
-        scopeForm.$apply( () => { 
-            tef.frecuencia.selected = freq; 
-        });
+        if (programacion.frecuencia){
+            fillProgramacionFrecuencia(programacion.frecuencia);
+        }
 
-        if (programacion.inicio) {
-            document.getElementById("fechaInicioInput").value = programacion.inicio;
-            scopeForm.$apply( () => { 
-                tef.fechaInicio = new Date("3-5-2019"); 
-            });
+        if (programacion.fechaInicio) {
+            fillFechaInicio(programacion.fechaInicio);
         }
-        if (programacion.fin) {
-            document.getElementById("fechaTerminoInput").value = programacion.fin;
-            scopeForm.$apply( () => { 
-                tef.fechaTermino = new Date("3-5-2020"); 
-            });
+        if (programacion.fechaTermino) {
+            fillFechaTermino(programacion.fechaTermino);
         }
+    });
+}
+
+function fillProgramacionFrecuencia(frecuencia){
+    let freq = findFreqElement(frecuencia, tef.frecuencias)
+    scopeForm.$apply( () => { 
+        tef.frecuencia.selected = freq; 
+    });
+}
+
+function fillFechaInicio(fechaInicio){
+    scopeForm.$apply( () => { 
+        tef.fechaInicio = new Date(fechaInicio); 
+        tef.fechaInicioProgramada = new Date(fechaInicio); 
+    });
+}
+
+function fillFechaTermino(fechaTermino){
+    scopeForm.$apply( () => { 
+        tef.fechaTermino = new Date(fechaTermino); 
     });
 }
 
@@ -135,33 +148,7 @@ function findFreqElement(nombre, freqList) {
     var strip = s => { return String(s).toLocaleLowerCase()}; // comparar solo por digitos
     return freqList.find( f => { return strip(nombre) == strip(f.nombre) } );
 }
-// document.addEventListener('load', () => {
-// init();
-// fillForm(transferencia)
-// });
-//Init script 
-// (function main() {
-//     console.log("init bancochile transferencia");
-//     //init variables when page is loaded
 
-//     // document.addEventListener('load', init);
-//     console.log('finish main')
-    
-//     // var fillBtn = document.createElement('div');
-//     // fillBtn.className = "autopac-fixed-div";
-//     // fillBtn.innerHTML = `<button id='fillForm' 
-//     //                         class='mdl-button 
-//     //                         mdl-js-button 
-//     //                         mdl-button--raised 
-//     //                         mdl-js-ripple-effect 
-//     //                         mdl-button--accent'>
-//     //                     Fill form
-//     //                 </button>`;
-
-//     // fillBtn.addEventListener('click', autoFill)
-//     // document.body.insertBefore(fillBtn, document.body.childNodes[0]);
-
-// })();
 
 function waitStep1() {
     return new Promise( function(resolve, reject) {
@@ -175,10 +162,16 @@ function waitStep1() {
 function waitFrecuenciaTransferencias() {
     return new Promise( function(resolve, reject) {
         var checkFlag = () => {
-            tef.frecuencias ? resolve() : setTimeout(checkFlag, 100);
+            tef.frecuencias && tef.programada ? resolve() : setTimeout(checkFlag, 100);
         }
         checkFlag();
     });
 }
 
+window.addEventListener("load", function(event) {
+    setTimeout( () => {
+        init();
+        fillForm(transferencia);
+    }, 2000);
+});
 
