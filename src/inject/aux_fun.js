@@ -13,12 +13,11 @@ var transferencia = {
 
 
 function fill_bancochile(){
-    console.log("Banco Chile!!!");
     init();
     fillForm(transferencia)
 }
 
-function fillForm2(){
+function fill_santander(){
     alert("Santander!!!");
 }
 

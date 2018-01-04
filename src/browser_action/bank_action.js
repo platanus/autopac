@@ -45,12 +45,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";
                 // Open form to fill in the same tab  
 
-                chrome.tabs.getSelected(null, function(tab){
-                    chrome.tabs.executeScript(tab.id, {code: "bancochileButton()"});
-                }); 
+                openForm(json[bank_name].form_url);
 
-
-                       
+                setTimeout( () => {
+                    chrome.tabs.getSelected(null, function(tab){
+                        chrome.tabs.executeScript(tab.id, {code: "bancochileButton()"});
+                    });
+                }, 3000);                       
                 /* 
                 document.getElementById("button-div").innerHTML = "<button id='make-fill-button' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Make button</button>";
 

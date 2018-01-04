@@ -38,7 +38,7 @@
       "matches": [
         "https://portalpersonas.bancochile.cl/*",
         "https://www.santander.cl/transa/segmentos/Menu/*" ,
-        "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
+        "https://www.bancoestado.cl/*"
       ],
       "js": [
         "src/inject/inject.js", 
