@@ -24,8 +24,6 @@
     "default_title": "browser/page action demo"
   },
   "permissions": [
-    "cookies",
-    "notifications",
     "tabs",
     "declarativeContent",
     "activeTab",
@@ -41,8 +39,7 @@
         "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
       ],
       "js": [
-        "src/inject/inject.js", 
-        "src/browser_action/inject_button.js"
+        "src/inject/inject.js"
       ],
       "css" : [
         "src/inject/inject.css"

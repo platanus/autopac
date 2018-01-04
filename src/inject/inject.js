@@ -5,12 +5,3 @@ s.onload = function() {
     this.remove();
 };
 (document.head || document.documentElement).appendChild(s);
-//console.log("yay")
-
-/*
-var style = document.createElement('link');
-style.rel = 'stylesheet';
-style.type = 'text/css';
-style.href = chrome.extension.getURL('src/inject/inject.css');
-document.head.appendChild(style);
-*/
