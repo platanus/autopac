@@ -45,9 +45,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";
                 // Open form to fill in the same tab  
 
-                chrome.tabs.getSelected(null, function(tab){
-                    chrome.tabs.executeScript(tab.id, {code: "bancochileButton()"});
-                }); 
+                
+                openForm(json[bank_name].form_url);
+            
+                           setTimeout( () => {
+                               chrome.tabs.getSelected(null, function(tab){
+                                   chrome.tabs.executeScript(tab.id, {code: "bancochileButton()"});
+                               });
+                           }, 3000);
+                
 
 
                        
@@ -81,3 +87,5 @@ function testFillButton() {
         code: 'location.href="javascript:fill_bancochile(); void 0";'
     });
 }
+
+
