@@ -68,3 +68,16 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var fillFormBtn = document.getElementById('fillFormBtn');
+    // onClick's logic below:
+    fillFormBtn.addEventListener('click', testFillButton);
+});
+
+function testFillButton() {
+    // document.getElementById("fillFormBtn").innerText += " 1";
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:fill_bancochile(); void 0";'
+    });
+}
