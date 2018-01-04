@@ -28,9 +28,17 @@ function getPage(callback){
 }
 
 //Open form in the same tab
-function openForm(bank_form){
+function openForm(json){
     // Open in the same tab the form to fill
-    chrome.tabs.update({ url: bank_form });
+console.log(json.name);
+    if (json.domain=="santander.cl") {    
+        santanderForm();
+    }
+    else {   
+        chrome.tabs.update({ url: json.form_url });
+
+
+    }
 }
 
 // Add lsitener for main button
@@ -42,12 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
           $.getJSON("active_pages.json", json => {
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";
                 // Open form to fill in the same tab    
-                if (bank_name=="santander") {    
-                   santanderForm(); 
-                }
-                else {              
-                    openForm(json[bank_name].form_url);
-                }
+                           
+                openForm(json[bank_name]);
+                
             });
         }); 
     });
@@ -60,12 +65,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fillButton() {
-    // document.getElementById("fillFormBtn").innerText += " 1";
     chrome.tabs.executeScript({
-        code: 'location.href="javascript:fill_santander(); void 0";'
+        code: 'location.href="javascript:fill_my_form(); void 0";'
     });
 }
 
+//Santander dont change its URL, need a fun
 function santanderForm() {
     chrome.tabs.executeScript({
         code: 'location.href="javascript:goToSantanderForm(); void 0";'

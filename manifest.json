@@ -34,14 +34,20 @@
 
     {
       "matches": [
-        "https://portalpersonas.bancochile.cl/*",
-        "https://www.santander.cl/transa/segmentos/Menu/*" ,
-        "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
+        "https://www.santander.cl/transa/segmentos/Menu/*"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/inject/santander_inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://portalpersonas.bancochile.cl/*"
+      ],
+      "js": [
+        "src/inject/bancochile_inject.js"
       ]
     }
   ],
-  "web_accessible_resources": ["src/inject/aux_fun.js"]
+  "web_accessible_resources": ["src/inject/santander_fun.js", "src/inject/bancochile_fun.js"]
 }

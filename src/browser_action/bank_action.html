@@ -3,12 +3,10 @@
 	#mainPopup {
 		
         height: 180px;
-        width: 200px;
-
+        width: 250px;
         display: inline-block;
         vertical-align: middle;
         line-height: normal;
-
 		font-family: Helvetica, Ubuntu, Arial, sans-serif;
 	}
     #appinfo {
@@ -23,7 +21,6 @@
         position: relative;
         text-align: center;
     }
-
 	h1 {
 		font-size: 2em;
 	}
@@ -32,9 +29,7 @@
     }
     button {
         text-align: center;
-
     }
-
 </style>
 
 <head>
@@ -50,11 +45,26 @@
     <div id="mainPopup">
         <h1>Hello!</h1>
         <div id="main-button-div" class="mdl-dialog__content">
-            <button id="mainButton" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Get page</button>
-        </div>    
+            <button id="mainButton" 
+                    class="mdl-button 
+                           mdl-js-button 
+                           mdl-button--raised 
+                           mdl-js-ripple-effect 
+                           mdl-button--accent">
+                Ir a Transferencia
+            </button>
+        </div>
+        <button id="fillFormBtn" 
+            class="mdl-button 
+               mdl-js-button 
+               mdl-button--raised 
+               mdl-js-ripple-effect 
+               mdl-button--accent">
+            Completar Formulario
+        </button>
+        </button>
         <div id="text-holder" class="mdl-dialog__content"></div>
         <div id="button-div" class="mdl-dialog__content"></div>
     </div>
 </body>
-
 
