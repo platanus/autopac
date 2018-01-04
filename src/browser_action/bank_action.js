@@ -39,32 +39,35 @@ document.addEventListener('DOMContentLoaded', function() {
     // onClick's logic below:
     mainButton.addEventListener('click', function() {
         getPage( bank_name => {
-          console.log("banco", bank_name);
           $.getJSON("active_pages.json", json => {
-
                 document.getElementById("text-holder").innerHTML = "<p>"+ json[bank_name].name  +"</p>" + "<p>"+ json[bank_name].domain  +"</p>";
-                // Open form to fill in the same tab  
-
-                chrome.tabs.getSelected(null, function(tab){
-                    chrome.tabs.executeScript(tab.id, {code: "bancochileButton()"});
-                }); 
-
-
-                       
-                /* 
-                document.getElementById("button-div").innerHTML = "<button id='make-fill-button' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent'>Make button</button>";
-
-                // Add listener for the new button in the extension
-                var fillButton = document.getElementById('make-fill-button');
-                // onClick's logic below:
-                fillButton.addEventListener('click', function() {
-                    document.getElementById("text-holder").innerHTML = "<p>Completando formulario</p>";
-                    // Inject new button in the source page
-                    chrome.tabs.executeScript(null, {file: "src/browser_action/inject_button.js" });
-                });
-                */
+                // Open form to fill in the same tab    
+                if (bank_name=="santander") {    
+                   santanderForm(); 
+                }
+                else {              
+                    openForm(json[bank_name].form_url);
+                }
             });
         }); 
     });
 
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    var fillFormBtn = document.getElementById('fillFormBtn');
+    fillFormBtn.addEventListener('click', fillButton);
+});
+
+function fillButton() {
+    // document.getElementById("fillFormBtn").innerText += " 1";
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:fill_santander(); void 0";'
+    });
+}
+
+function santanderForm() {
+    chrome.tabs.executeScript({
+        code: 'location.href="javascript:goToSantanderForm(); void 0";'
+    });
+}
