@@ -33,10 +33,11 @@
     "https://*/*" 
   ],
   "content_scripts": [
+
     {
       "matches": [
         "https://login.bancochile.cl/*",
-        "https://www.santander.cl/*" ,
+        "https://www.santander.cl/transa/segmentos/Menu/*" ,
         "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
       ],
       "js": [
