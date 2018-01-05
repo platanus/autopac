@@ -18,13 +18,14 @@
     ],
     "persistent": false
   },
-  "options_page": "src/options/index.html",
+  "options_page": "src/options/options.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser/page action demo"
   },
   "permissions": [
     "tabs",
+    "storage",
     "declarativeContent",
     "activeTab",
     "http://*/*",

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="./options.js" defer></script>
+	<link rel="stylesheet" href="../../js/mdl/material.min.css">
+	<script src="../../js/mdl/material.min.js"></script>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<title>AutoPac Options</title>
+
+</head>
+<body>
+	
+<form action="/action_page.php">
+	Monto:<br>
+	<input type="number" id="monto" value=50000>
+	<br>
+	Rut Destinatario:<br>
+	<input type="text" id="rutDestinatario" value="18303757-9">
+	<br>
+	Fecha Inicio:<br>
+	<input type="date" id="fechaInicio">
+	<br>
+	Fecha Termino:<br>
+	<input type="date" id="fechaTermino">
+	<br>
+	<select id="frecuencia">
+		<option></option>
+		<option>mensual</option>
+		<option>trimestral</option>
+		<option>semestral</option>
+	</select>
+	<br>
+	<input type="button" value="Save" id="save">
+	<input type="button" value="Get" id="get">   
+
+</form>
+
+</html>
