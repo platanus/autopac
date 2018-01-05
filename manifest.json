@@ -1,7 +1,7 @@
 {
   "name": "Autopac",
   "short_name": "Autopac", 
-  "version": "0.0.2",
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "Put description here",
   "homepage_url": "https://platan.us/",
@@ -31,7 +31,6 @@
     "https://*/*" 
   ],
   "content_scripts": [
-
     {
       "matches": [
         "https://www.santander.cl/transa/segmentos/Menu/*"
