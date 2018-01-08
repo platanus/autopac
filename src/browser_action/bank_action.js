@@ -30,7 +30,8 @@ function getPage(callback) {
 //Open form in the same tab
 function openForm(json) {
   // Open in the same tab the form to fill
-  console.log(json.name);
+  console.log(json);
+  console.log(tabURL)
   if (json.domain == "santander.cl") {
     santanderForm();
   } else {
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
       // onClick's logic below:
       mainButton.addEventListener('click', function() {
         // Open form to fill in the same tab
+
         openForm(json[bank_name]);
 
         //wait until the page is loaded
@@ -77,3 +79,4 @@ function santanderForm() {
     code: 'location.href="javascript:goToSantanderForm(); void 0";'
   });
 }
+
