@@ -1,17 +1,5 @@
-//TODO get params from extension
-var transferencia = {
-    origen: {},
-    destinatario: {},
-    monto: 5000,
-    rut_destinatario: "8.199.935-k",
-    programacion: {
-        fechaInicio: "12-02-2018",
-        fechaTermino: "05-09-2019",
-        frecuencia: "MENSUAL"
-    }
-}
 
-
+var transferencia = window.transferencia
 function fill_my_form(){
     init();
     fillForm(transferencia)

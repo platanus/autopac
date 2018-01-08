@@ -18,19 +18,29 @@
     ],
     "persistent": false
   },
-  "options_page": "src/options/index.html",
+  "options_page": "src/options/options.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser/page action demo"
   },
   "permissions": [
     "tabs",
+    "storage",
     "declarativeContent",
     "activeTab",
     "http://*/*",
     "https://*/*" 
   ],
   "content_scripts": [
+    {
+      "matches": [
+        "https://www.santander.cl/transa/segmentos/Menu/*",
+        "https://portalpersonas.bancochile.cl/*"
+      ],
+      "js": [
+        "src/inject/transferencia_inject.js"
+      ]
+    },
     {
       "matches": [
         "https://www.santander.cl/transa/segmentos/Menu/*"
@@ -48,5 +58,8 @@
       ]
     }
   ],
-  "web_accessible_resources": ["src/inject/santander_fun.js", "src/inject/bancochile_fun.js"]
+  "web_accessible_resources": [
+    "src/inject/transferencia_fun.js",
+    "src/inject/santander_fun.js", 
+    "src/inject/bancochile_fun.js"]
 }
