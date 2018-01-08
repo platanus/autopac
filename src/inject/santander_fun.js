@@ -28,11 +28,17 @@ function fillFirstForm() {
   document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementById("TipoPeriodica_3").click();
 
   document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("diames").item(0).value = 1;
+  //First payment
   document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("diainicio").item(0).value = 30;
-  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("mesinicio").item(0).value = '01';
+  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("mesinicio").item(0).value = "01";
   document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("anoinicio").item(0).value = 2018;
 
-  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementById("FechaTermino_1").click();
+   //Last payment
+  //document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementById("FechaTermino_1").click();
+  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementById("FechaTermino_2").click();
+  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("diatermino").item(0).value = 30;
+  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("mestermino").item(0).value = "01";
+  document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document.getElementsByName("anotermino").item(0).value = 2019;
 
   //Sleep for 1 second, the user can check the form
   setTimeout(() => {
