@@ -1,40 +1,9 @@
-//TODO get params from extension
-window.addEventListener("message", function(event) {
-    window.transferencia = JSON.parse(event.data.message)
-    console.log(transferencia);
 
-    window.transferencia.rutDestinatario && (window.transferencia.rut_destinatario = window.transferencia.rutDestinatario);
-    window.transferencia.programacion = {}
-    window.transferencia.frecuencia && (window.transferencia.programacion.frecuencia = window.transferencia.frecuencia);
-    window.transferencia.fechaInicio && (window.transferencia.programacion.fechaInicio = window.transferencia.fechaInicio);
-    window.transferencia.fechaTermino && (window.transferencia.programacion.fechaTermino = window.transferencia.fechaTermino);
-
-
-    // var transferenciaDefault = {
-    //     origen: {},
-    //     destinatario: {},
-    //     monto: 5000,
-    //     rut_destinatario: "8.199.935-k",
-    //     programacion: {
-    //         fechaInicio: "12-02-2018",
-    //         fechaTermino: "05-09-2019",
-    //         frecuencia: "MENSUAL"
-    //     }
-    // }
-    // window.transferencia = transferenciaDefault;
-});
-
-
-function fill_bancochile(){
-    console.log("Banco Chile!!!");
+var transferencia = window.transferencia
+function fill_my_form(){
     init();
     fillForm(transferencia)
 }
-
-function fillForm2(){
-    alert("Santander!!!");
-}
-
 
 /*
 Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
@@ -205,3 +174,4 @@ window.addEventListener("load", function(event) {
         // fillForm(transferencia);
     }, 4000); //TODO get rid of timer and listen to load status
 });
+

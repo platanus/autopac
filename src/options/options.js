@@ -67,5 +67,6 @@ function getTransferencia(){
 var storage = chrome.storage.local;
 document.getElementById('save').addEventListener('click', saveTransferencia);
 document.getElementById('get').addEventListener('click', getTransferencia);
+getTransferencia();
 
 

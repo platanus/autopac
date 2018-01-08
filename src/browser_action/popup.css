@@ -1,0 +1,30 @@
+	#mainPopup {
+
+        height: 180px;
+        width: 230px;
+        display: inline-block;
+        vertical-align: middle;
+        line-height: normal;
+		font-family: Helvetica, Ubuntu, Arial, sans-serif;
+	}
+    #appinfo {
+        background-color: #3f51b5;
+        border: 0;
+        color: #FFFFFF;
+        display: block;
+        font-size: 85%;
+        line-height: 1.2;
+        margin: 0;
+        padding: calc(0.1em + 1px) 0;
+        position: relative;
+        text-align: center;
+    }
+	h1 {
+		font-size: 2em;
+	}
+    div {
+        text-align:center
+    }
+    button {
+        text-align: center;
+    }

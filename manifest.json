@@ -1,7 +1,7 @@
 {
   "name": "Autopac",
   "short_name": "Autopac", 
-  "version": "0.0.2",
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "Put description here",
   "homepage_url": "https://platan.us/",
@@ -32,20 +32,34 @@
     "https://*/*" 
   ],
   "content_scripts": [
-
     {
       "matches": [
-        "https://portalpersonas.bancochile.cl/*",
-        "https://www.santander.cl/transa/segmentos/Menu/*" ,
-        "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html"
+        "https://www.santander.cl/transa/segmentos/Menu/*",
+        "https://portalpersonas.bancochile.cl/*"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/inject/transferencia_inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://www.santander.cl/transa/segmentos/Menu/*"
       ],
-      "css" : [
-        "src/inject/inject.css"
+      "js": [
+        "src/inject/santander_inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://portalpersonas.bancochile.cl/*"
+      ],
+      "js": [
+        "src/inject/bancochile_inject.js"
       ]
     }
   ],
-  "web_accessible_resources": ["src/inject/aux_fun.js"]
+  "web_accessible_resources": [
+    "src/inject/transferencia_fun.js",
+    "src/inject/santander_fun.js", 
+    "src/inject/bancochile_fun.js"]
 }
