@@ -118,7 +118,7 @@ function findDestinatarioByRUT(rut, destinatarios) {
 }
 // Encuentra la frecuencia elegida dentro del select
 function findFreqElement(nombre, freqList) {
-    var strip = s => { return String(s).toLocaleLowerCase()}; // comparar solo por digitos
+    var strip = s => { return String(s).toLocaleLowerCase()};
     return freqList.find( f => { return strip(nombre) == strip(f.nombre) } );
 }
 
@@ -141,6 +141,7 @@ function waitFrecuenciaTransferencias() {
     });
 }
 
+// TODO wait for data to load without using a timeout
 window.addEventListener("load", function(event) {
     setTimeout( () => {
         console.log("init")
@@ -151,3 +152,37 @@ window.addEventListener("load", function(event) {
     }, 4000); //TODO get rid of timer and listen to load status
 });
 
+
+function addNuevoDestinatario(destinatario) {
+    // get the radial button and click it
+    var nuevoDestinatarioBtn = [...document.getElementsByClassName("btn-animado success-btn text-info")]
+                                 .find( e => e.innerText.includes('Nuevo Destinatario'));
+    nuevoDestinatarioBtn.click();
+    //fill rut
+    scopeForm.$apply( () => { 
+        tef.rutMostrar = destinatario.rut;
+    });
+    // click continue
+    var continuarBtn = [...document.getElementsByClassName("btn info")]
+        .find( e => e.innerText.includes('Continuar'));
+    continuarBtn.click();
+    // fill nombre
+    scopeForm.$apply( () => { 
+        tef.beneficiarioExistente.nombreRazonSocial = destinatario.nombre;
+    });
+    // select banco
+    var bancoSelectDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")]
+                        .find( x => x.innerHTML.includes('tef.bancos'));
+    var bancoSelectScope = angular.element(bancoSelectDOM).scope(); 
+    var selectedBanco = bancoSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.banco.toLowerCase()))
+    bancoSelectScope.$select.select(selectedBanco)           
+    // select tipo de cuenta 
+    // fill numero de cuenta
+    scopeForm.$apply( () => { 
+        tef.cuentaSeleccionada.numeroCuenta = destinatario.numeroCuenta;
+    });
+    // * fill mail
+
+
+
+}
