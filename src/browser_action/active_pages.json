@@ -2,29 +2,29 @@
     "bancochile":
     {
         "name": "Banco de Chile",
-        "domain": "bancochile.cl", 
+        "domain": "bancochile.cl",
         "form_url": "https://portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html#/transferencias/terceros",
-        "type": "banco"
+        "type": "provider"
     },
     "bancoestado":
     {
         "name": "Banco Estado",
         "domain": "bancoestado.cl",
         "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html",
-        "type": "externo"
+        "type": "provider"
     },
     "santander":
     {
         "name": "Banco Santander",
         "domain": "santander.cl",
         "form_url": "https://www.santander.cl/transa/segmentos/Menu/view.asp",
-        "type": "banco"
+        "type": "provider"
     },
     "fintual":
     {
         "name": "FINTUAL",
         "domain": "fintual.cl",
         "form_url": "l",
-        "type": "externo"
+        "type": "requester"
     }
 }

@@ -15,7 +15,6 @@ var fin = {
   };
 
 function fill_my_form() {
-  console.log(my_date)
   fillFirstForm();
 }
 
@@ -78,13 +77,14 @@ function fillSecondForm() {
 
   //TODO Check with real form
   my_frame.getElementsByName("numcuenta").item(0).click();
+  //This value is only for Santander select
   my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
-  my_frame.getElementsByName("tipo_cuenta").item(0).value = 1
-  my_frame.getElementsByName("RutDestinatario").item(0).value = 111111111
-  my_frame.getElementsByName("cuenta_destino").item(0).value = 1111
-  my_frame.getElementsByName("maildestino").item(0).value = "1@1.com"
-  my_frame.getElementsByName("monto").item(0).value = 1000
-  my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL"
+  my_frame.getElementsByName("tipo_cuenta").item(0).value = 1;
+  my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia.rut_destinatario;
+  my_frame.getElementsByName("cuenta_destino").item(0).value = transferencia.cuenta_destinatario;
+  my_frame.getElementsByName("maildestino").item(0).value = transferencia.rut_destinatario;
+  my_frame.getElementsByName("monto").item(0).value = tranferencia.monto;
+  my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL";
 
   //Sleep for 1 second, the user can check the form
   setTimeout(() => {

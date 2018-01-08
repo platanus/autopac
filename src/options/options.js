@@ -1,3 +1,4 @@
+//TODO agregar neuvos campos, cuenta destino, mail, etc
 class Transferencia {
 
     constructor(obj){
@@ -5,7 +6,7 @@ class Transferencia {
             this[attr[0]] = attr[1];
         });
     }
-    
+
     get monto(){
         return document.getElementById("monto").value
     }
@@ -68,5 +69,3 @@ var storage = chrome.storage.local;
 document.getElementById('save').addEventListener('click', saveTransferencia);
 document.getElementById('get').addEventListener('click', getTransferencia);
 getTransferencia();
-
-

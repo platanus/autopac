@@ -5,6 +5,8 @@ const TRANSFERENCIA_DEFAULT = {
     destinatario: {},
     monto: 50000,
     rut_destinatario: "8.199.935-k",
+    mail_destinatario: "fitnual_test@fintual.com",
+    cuenta_destinatario: "111111111",
     programacion: {
         fechaInicio: "12-02-2018",
         fechaTermino: "05-09-2019",
@@ -21,6 +23,8 @@ window.addEventListener("message", function(event) {
     console.log("recibido transferencia", transferencia);
     window.transferencia.rutDestinatario && (window.transferencia.rut_destinatario = window.transferencia.rutDestinatario);
     window.transferencia.programacion = {}
+
+    //TODO comentar esto
     window.transferencia.frecuencia && (window.transferencia.programacion.frecuencia = window.transferencia.frecuencia);
     window.transferencia.fechaInicio && (window.transferencia.programacion.fechaInicio = window.transferencia.fechaInicio);
     window.transferencia.fechaTermino && (window.transferencia.programacion.fechaTermino = window.transferencia.fechaTermino);
