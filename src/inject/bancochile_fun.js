@@ -24,9 +24,9 @@ Script para autollenar el formulario de transferencias programadas de la pagina 
 
 
 
-/***************** 
+/*****************
 // Initial transferencia interface
-transferencia 
+transferencia
 {
 monto
 usuario
@@ -55,7 +55,7 @@ var freqItems;
 
 //Initialize form data
 function init() {
-    // Angularjs scope's objects used 
+    // Angularjs scope's objects used
     scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
     tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
@@ -94,9 +94,9 @@ function fillDestinatario(rutDestinatario) {
 }
 
 function fillMonto(monto) {
-    // apply changes to model 
-    scopeForm.$apply( () => { 
-        scopeForm.tef.monto = String(monto); 
+    // apply changes to model
+    scopeForm.$apply( () => {
+        scopeForm.tef.monto = String(monto);
     });
     // trigger change's events
     tef.montoValidatorOnChange()
@@ -104,8 +104,8 @@ function fillMonto(monto) {
 
 function triggerProgramar() {
         // get "Programar" radial button
-        // scopeForm.$apply( () => { 
-        //     tef.programada = true; 
+        // scopeForm.$apply( () => {
+        //     tef.programada = true;
         // });
         var programarBtn = [...document.getElementsByClassName("bch-custom-check radiobutton")]
                                 .find( e => e.innerText.includes('Programar'));
@@ -129,21 +129,21 @@ function programarFrecuencia(programacion) {
 
 function fillProgramacionFrecuencia(frecuencia){
     let freq = findFreqElement(frecuencia, tef.frecuencias)
-    scopeForm.$apply( () => { 
-        tef.frecuencia.selected = freq; 
+    scopeForm.$apply( () => {
+        tef.frecuencia.selected = freq;
     });
 }
 
 function fillFechaInicio(fechaInicio){
-    scopeForm.$apply( () => { 
-        tef.fechaInicio = new Date(fechaInicio); 
-        tef.fechaInicioProgramada = new Date(fechaInicio); 
+    scopeForm.$apply( () => {
+        tef.fechaInicio = new Date(fechaInicio);
+        tef.fechaInicioProgramada = new Date(fechaInicio);
     });
 }
 
 function fillFechaTermino(fechaTermino){
-    scopeForm.$apply( () => { 
-        tef.fechaTermino = new Date(fechaTermino); 
+    scopeForm.$apply( () => {
+        tef.fechaTermino = new Date(fechaTermino);
     });
 }
 
@@ -186,4 +186,3 @@ window.addEventListener("load", function(event) {
         // fillForm(transferencia);
     }, 4000); //TODO get rid of timer and listen to load status
 });
-
