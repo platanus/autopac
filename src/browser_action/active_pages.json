@@ -1,0 +1,23 @@
+{
+    "bancochile":
+    {
+        "name": "Banco de Chile",
+        "domain": "bancochile.cl", 
+        "form_url": "https://login.bancochile.cl/bancochile-web/persona/login/index.html#/login",
+        "type": "banco"
+    },
+    "bancoestado":
+    {
+        "name": "Banco Estado",
+        "domain": "bancoestado.cl",
+        "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html",
+        "type": "externo"
+    },
+    "fintual":
+    {
+        "name": "FINTUAL",
+        "domain": "fintual.cl",
+        "form_url": "l",
+        "type": "externo"
+    }
+}

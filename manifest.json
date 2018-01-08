@@ -1,9 +1,9 @@
 {
   "name": "Autopac",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "manifest_version": 2,
   "description": "Put description here",
-  "homepage_url": "http://google.com",
+  "homepage_url": "https://platan.us/",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -12,15 +12,15 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "src/bg/background.js"
+      "src/bg/background.js",
+      "js/jquery-3.2.1.min.js"
     ],
     "persistent": false
   },
   "options_page": "src/options/index.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
-    "default_title": "browser/page action demo",
-    "default_popup": "src/browser_action/browser_action.html"
+    "default_title": "browser/page action demo"
   },
   "permissions": [
     "cookies",
@@ -43,6 +43,14 @@
       "css" : [
         "src/inject/inject.css",
         "js/mdl/material.min.css"
+      ]
+    },
+    {
+      "matches": [
+        "https://login.bancochile.cl/*" 
+      ],
+      "js": [
+        "src/browser_action/inject_button.js"
       ]
     }
   ],
