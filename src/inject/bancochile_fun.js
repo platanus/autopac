@@ -1,34 +1,12 @@
+/**
+ * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
+ */
 
-var transferencia = window.transferencia
-function fill_my_form(){
-    init();
+
+ function fill_my_form(){
+    initDataFromBancoChile();
     fillForm(transferencia)
 }
-
-/*
-Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
-*/
-
-
-
-
-/***************** 
-// Initial transferencia interface
-transferencia 
-{
-monto
-usuario
-usuarioD
-cuentaOrigen
-cuentaDestinatario
-
-programacion:
-    frecuencia:
-    inicio
-    fin
-    indefinida
-}
-***************** */
 
 
 var scopeForm;
@@ -41,14 +19,15 @@ var destinatarios;
 var freqItems;
 
 
-//Initialize form data
-function init() {
+// initialize data from the webpage form
+function initDataFromBancoChile() {
+    getTransferenciaFromContentScript();
     // Angularjs scope's objects used 
     scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
     tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
     scopeDest = angular.element($('#destinatario')).scope();
-    destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
+    destinatarios = scopeDest.$select.items // lista de destinatarios posibles para transferir
     // frecuencia select
     freqDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")][3];
     scopeFreq = angular.element(freqDOM).scope();
@@ -61,7 +40,7 @@ function init() {
 function fillForm() {
 
     //Step 1 : Datos de la Transferencia
-    fillDestinatario(transferencia.rut_destinatario);
+    fillDestinatario(transferencia.destinatario.rut);
     fillMonto(transferencia.monto);
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
@@ -89,23 +68,20 @@ function fillMonto(monto) {
     // trigger change's events
     tef.montoValidatorOnChange()
 }
-
+// clicks the "programar" button to reveal the "programacion" options
 function triggerProgramar() {
-        // get "Programar" radial button
-        // scopeForm.$apply( () => { 
-        //     tef.programada = true; 
-        // });
+        // get the radial button and clicks it
         var programarBtn = [...document.getElementsByClassName("bch-custom-check radiobutton")]
                                 .find( e => e.innerText.includes('Programar'));
         programarBtn.click();
 }
 
+// fills the part 2 of the form (programacion)
 function programarFrecuencia(programacion) {
     waitFrecuenciaTransferencias().then( ()=>{
         if (programacion.frecuencia){
             fillProgramacionFrecuencia(programacion.frecuencia);
         }
-
         if (programacion.fechaInicio) {
             fillFechaInicio(programacion.fechaInicio);
         }
@@ -140,7 +116,7 @@ function findDestinatarioByRUT(rut, destinatarios) {
     var strip = s => { return String(s).replace(/\D/g, '')}; // comparar solo por digitos
     return destinatarios.find( d => { return strip(rut) == strip(d.rut) } );
 }
-
+// Encuentra la frecuencia elegida dentro del select
 function findFreqElement(nombre, freqList) {
     var strip = s => { return String(s).toLocaleLowerCase()}; // comparar solo por digitos
     return freqList.find( f => { return strip(nombre) == strip(f.nombre) } );
@@ -170,7 +146,7 @@ window.addEventListener("load", function(event) {
         console.log("init")
         // var fillBtn = document.getElementById('fillForm');
         // fillBtn.addEventListener('click', fillForm);
-        init();
+        initDataFromBancoChile();
         // fillForm(transferencia);
     }, 4000); //TODO get rid of timer and listen to load status
 });
