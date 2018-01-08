@@ -1,4 +1,21 @@
+var transferencia = window.transferencia;
+
+var my_date = new Date(transferencia.programacion.fechaInicio);
+var inicio = {
+    diainicio : my_date.getDate(),
+    mesinicio : my_date.getMonth(),
+    anoinicio : my_date.getYear()
+  };
+
+my_date = new Date(transferencia.programacion.fechaTermino);
+var fin = {
+    diatermino : my_date.getDate(),
+    mestermino : my_date.getMonth(),
+    anotermino : my_date.getYear()
+  };
+
 function fill_my_form() {
+  console.log(my_date)
   fillFirstForm();
 }
 
@@ -33,16 +50,16 @@ function fillFirstForm() {
 
   my_frame.getElementsByName("diames").item(0).value = 1;
   //First payment
-  my_frame.getElementsByName("diainicio").item(0).value = 30;
-  my_frame.getElementsByName("mesinicio").item(0).value = "01";
-  my_frame.getElementsByName("anoinicio").item(0).value = 2018;
+  my_frame.getElementsByName("diainicio").item(0).value = inicio.diainicio;
+  my_frame.getElementsByName("mesinicio").item(0).value = (inicio.mesinicio+1).toString().padStart(2, "0");
+  my_frame.getElementsByName("anoinicio").item(0).value = inicio.anoinicio + 1900;
 
    //Last payment
   //my_frame.getElementById("FechaTermino_1").click();
   my_frame.getElementById("FechaTermino_2").click();
-  my_frame.getElementsByName("diatermino").item(0).value = 30;
-  my_frame.getElementsByName("mestermino").item(0).value = "01";
-  my_frame.getElementsByName("anotermino").item(0).value = 2019;
+  my_frame.getElementsByName("diatermino").item(0).value = fin.diatermino;
+  my_frame.getElementsByName("mestermino").item(0).value = (fin.mestermino+1).toString().padStart(2, "0");
+  my_frame.getElementsByName("anotermino").item(0).value = fin.anotermino+ 1900;
 
   //Sleep for 1 second, the user can check the form
   setTimeout(() => {
@@ -59,6 +76,7 @@ function fillSecondForm() {
   //Get the iframe document
   var my_frame = document.getElementById("2").contentWindow.document.getElementById("p4").contentWindow.document;
 
+  //TODO Check with real form
   my_frame.getElementsByName("numcuenta").item(0).click();
   my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
   my_frame.getElementsByName("tipo_cuenta").item(0).value = 1
