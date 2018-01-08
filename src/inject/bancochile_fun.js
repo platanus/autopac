@@ -40,7 +40,7 @@ function initDataFromBancoChile() {
 function fillForm() {
 
     //Step 1 : Datos de la Transferencia
-    fillDestinatario(transferencia.destinatario.rut);
+    fillDestinatario(transferencia.destinatario);
     fillMonto(transferencia.monto);
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
@@ -50,13 +50,14 @@ function fillForm() {
     });
 }
 
-function fillDestinatario(rutDestinatario) {
-    let destinatario = findDestinatarioByRUT(rutDestinatario, destinatarios)
-    if (destinatario) {
-        scopeDest.$select.select(destinatario) // trigger select
+function fillDestinatario(destinatario) {
+    let selectedDestinatario = findDestinatarioByRUT(destinatario.rut, destinatarios)
+    if (selectedDestinatario) {
+        scopeDest.$select.select(selectedDestinatario) // trigger select
     }
     else {
-        //TODO agregar destinatario automaticamente si no esta en la lista
+        // automaticcaly adds the destinatario if it's not in the list
+        addNuevoDestinatario(destinatario);
     }
 }
 
@@ -172,17 +173,34 @@ function addNuevoDestinatario(destinatario) {
     });
     // select banco
     var bancoSelectDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")]
-                        .find( x => x.innerHTML.includes('tef.bancos'));
+                           .find( x => x.innerHTML.includes('tef.bancos'));
     var bancoSelectScope = angular.element(bancoSelectDOM).scope(); 
-    var selectedBanco = bancoSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.banco.toLowerCase()))
-    bancoSelectScope.$select.select(selectedBanco)           
+    var selectedBanco = bancoSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.banco.toLowerCase()));
+    bancoSelectScope.$select.select(selectedBanco);        
     // select tipo de cuenta 
+    var tipoCuentaSelectDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")]
+                                .find( x => x.innerHTML.includes('tef.tipoCtas'));
+    var tipoCuentaSelectScope = angular.element(tipoCuentaSelectDOM).scope(); 
+    var selectedTipoCuenta = tipoCuentaSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.tipoCuenta.toLowerCase()));
+    tipoCuentaSelectScope.$select.select(selectedTipoCuenta);  
     // fill numero de cuenta
-    scopeForm.$apply( () => { 
-        tef.cuentaSeleccionada.numeroCuenta = destinatario.numeroCuenta;
+    scopeForm.$apply( () => {
+        tef.cuentaSeleccionada = {};
+        tef.cuentaSeleccionada.numeroCuenta = String(destinatario.numeroCuenta).replace(/\D/g, '');
     });
-    // * fill mail
-
-
+    // * fill mail TODO
+    if (destinatario.mail) {
+        scopeForm.$apply( () => {
+            tef.cuentaSeleccionada.mail = destinatario.mail;
+        });
+    }
+    document.getElementsByName("emailEdit")[0].value = destinatario.mail;
+    //click continue to add
+    var addNuevoDestinatarioBtn = [...document.getElementsByClassName("btn success pull-right mr-0 ml-10")]
+    .find( e => e.innerText.includes('Continuar'));
+    addNuevoDestinatarioBtn.click();
+    
+    // add this value to the form to let the user known the selected email
+    document.getElementById("email-0").value = destinatario.mail;
 
 }

@@ -12,6 +12,7 @@ class TransferenciaOptions {
             obj.destinatario.nombre && (this.nombreDestinatario = obj.destinatario.nombre);
             obj.destinatario.numeroCuenta && (this.numeroCuentaDestinatario = obj.destinatario.numeroCuenta);
             obj.destinatario.tipoCuenta && (this.tipoCuentaDestinatario = obj.destinatario.tipoCuenta);
+            obj.destinatario.mail && (this.mailDestinatario = obj.destinatario.mail);
 
         }
         this.programacion = {};
@@ -77,6 +78,12 @@ class TransferenciaOptions {
     set tipoCuentaDestinatario(val){
         document.getElementById("tipoCuentaDestinatario").value = val;
     }
+    get mailDestinatario(){
+        return document.getElementById("mailDestinatario").value
+    }
+    set mailDestinatario(val){
+        document.getElementById("mailDestinatario").value = val;
+    }
 
 
     // returns raw data of the object (without setters and gettes) 
@@ -90,7 +97,7 @@ class TransferenciaOptions {
         this.nombreDestinatario && (obj.destinatario.nombre = this.nombreDestinatario);
         this.numeroCuentaDestinatario && (obj.destinatario.numeroCuenta = this.numeroCuentaDestinatario);
         this.tipoCuentaDestinatario && (obj.destinatario.tipoCuenta = this.tipoCuentaDestinatario);
-
+        this.mailDestinatario && (obj.destinatario.mail = this.mailDestinatario);
         
         obj.programacion = {};
         this.frecuencia && (obj.programacion.frecuencia = this.frecuencia);
