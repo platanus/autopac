@@ -80,6 +80,7 @@ function fillSecondForm() {
   //TODO Check with real form
   my_frame.getElementsByName("numcuenta").item(0).click();
   //This value is only for Santander select
+  //Include TODO select
   my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
   my_frame.getElementsByName("tipo_cuenta").item(0).value = 1;
   my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia.rut_destinatario;
@@ -93,4 +94,18 @@ function fillSecondForm() {
     my_frame.getElementsByName("Aceptar").item(0).click();
   }, 1000);
 
+}
+
+
+//a.value=arr.filter(x=> x.value.match("3"))[0].value
+
+//Find the elemet that match our bank and change the select value
+//var a=  my_frame.getElementsByName("mesinicio").item(0)
+//var arr = Array.prototype.slice.call( a.options )
+//Take the first match
+//a.value = arr.find(x=> x.value.toLowerCase.match(my_bank.toLowerCase())).value
+
+funtions selectBank(selectElement){
+  var arr = Array.prototype.slice.call( selectElement.options )
+  selectElement.value = arr.find(x=> x.value.toLowerCase.match(my_bank.toLowerCase())).value
 }
