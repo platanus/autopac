@@ -1,35 +1,6 @@
-
-var transferencia = window.transferencia
-function fill_my_form(){
-    init();
-    fillForm(transferencia)
-}
-
-/*
-Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
-*/
-
-
-
-
-/*****************
-// Initial transferencia interface
-transferencia
-{
-monto
-usuario
-usuarioD
-cuentaOrigen
-cuentaDestinatario
-
-programacion:
-    frecuencia:
-    inicio
-    fin
-    indefinida
-}
-***************** */
-
+/**
+ * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
+ */
 
 var scopeForm;
 var tef;
@@ -41,14 +12,15 @@ var destinatarios;
 var freqItems;
 
 
-//Initialize form data
-function init() {
-    // Angularjs scope's objects used
+// initialize data from the webpage form
+function initDataFromBancoChile() {
+    getTransferenciaFromContentScript();
+    // Angularjs scope's objects used 
     scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
     tefForm = scopeForm.tefForm; // TransferenciasTercerosForm
     scopeDest = angular.element($('#destinatario')).scope();
-    destinatarios = scopeDest.$select.items // list de destinatarios posibles para transferir
+    destinatarios = scopeDest.$select.items // lista de destinatarios posibles para transferir
     // frecuencia select
     freqDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")][3];
     scopeFreq = angular.element(freqDOM).scope();
@@ -61,7 +33,7 @@ function init() {
 function fillForm() {
 
     //Step 1 : Datos de la Transferencia
-    fillDestinatario(transferencia.rut_destinatario);
+    fillDestinatario(transferencia.destinatario);
     fillMonto(transferencia.monto);
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
@@ -71,13 +43,14 @@ function fillForm() {
     });
 }
 
-function fillDestinatario(rutDestinatario) {
-    let destinatario = findDestinatarioByRUT(rutDestinatario, destinatarios)
-    if (destinatario) {
-        scopeDest.$select.select(destinatario) // trigger select
+function fillDestinatario(destinatario) {
+    let selectedDestinatario = findDestinatarioByRUT(destinatario.rut, destinatarios)
+    if (selectedDestinatario) {
+        scopeDest.$select.select(selectedDestinatario) // trigger select
     }
     else {
-        //TODO agregar destinatario automaticamente si no esta en la lista
+        // automaticcaly adds the destinatario if it's not in the list
+        addNuevoDestinatario(destinatario);
     }
 }
 
@@ -89,23 +62,20 @@ function fillMonto(monto) {
     // trigger change's events
     tef.montoValidatorOnChange()
 }
-
+// clicks the "programar" button to reveal the "programacion" options
 function triggerProgramar() {
-        // get "Programar" radial button
-        // scopeForm.$apply( () => {
-        //     tef.programada = true;
-        // });
+        // get the radial button and clicks it
         var programarBtn = [...document.getElementsByClassName("bch-custom-check radiobutton")]
                                 .find( e => e.innerText.includes('Programar'));
         programarBtn.click();
 }
 
+// fills the part 2 of the form (programacion)
 function programarFrecuencia(programacion) {
     waitFrecuenciaTransferencias().then( ()=>{
         if (programacion.frecuencia){
             fillProgramacionFrecuencia(programacion.frecuencia);
         }
-
         if (programacion.fechaInicio) {
             fillFechaInicio(programacion.fechaInicio);
         }
@@ -140,9 +110,9 @@ function findDestinatarioByRUT(rut, destinatarios) {
     var strip = s => { return String(s).replace(/\D/g, '')}; // comparar solo por digitos
     return destinatarios.find( d => { return strip(rut) == strip(d.rut) } );
 }
-
+// Encuentra la frecuencia elegida dentro del select
 function findFreqElement(nombre, freqList) {
-    var strip = s => { return String(s).toLocaleLowerCase()}; // comparar solo por digitos
+    var strip = s => { return String(s).toLocaleLowerCase()};
     return freqList.find( f => { return strip(nombre) == strip(f.nombre) } );
 }
 
@@ -165,12 +135,73 @@ function waitFrecuenciaTransferencias() {
     });
 }
 
+function addNuevoDestinatario(destinatario) {
+    // get the radial button and click it
+    var nuevoDestinatarioBtn = [...document.getElementsByClassName("btn-animado success-btn text-info")]
+                                 .find( e => e.innerText.includes('Nuevo Destinatario'));
+    nuevoDestinatarioBtn.click();
+    //fill rut
+    scopeForm.$apply( () => { 
+        tef.rutMostrar = destinatario.rut;
+    });
+    // click continue
+    var continuarBtn = [...document.getElementsByClassName("btn info")]
+        .find( e => e.innerText.includes('Continuar'));
+    continuarBtn.click();
+    // fill nombre
+    scopeForm.$apply( () => { 
+        tef.beneficiarioExistente.nombreRazonSocial = destinatario.nombre;
+    });
+    // select banco
+    var bancoSelectDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")]
+                           .find( x => x.innerHTML.includes('tef.bancos'));
+    var bancoSelectScope = angular.element(bancoSelectDOM).scope(); 
+    var selectedBanco = bancoSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.banco.toLowerCase()));
+    bancoSelectScope.$select.select(selectedBanco);        
+    // select tipo de cuenta 
+    var tipoCuentaSelectDOM = [...document.getElementsByClassName("ui-select-container ui-select-bootstrap dropdown")]
+                                .find( x => x.innerHTML.includes('tef.tipoCtas'));
+    var tipoCuentaSelectScope = angular.element(tipoCuentaSelectDOM).scope(); 
+    var selectedTipoCuenta = tipoCuentaSelectScope.$select.items.find( x => x.toLowerCase().includes(destinatario.tipoCuenta.toLowerCase()));
+    tipoCuentaSelectScope.$select.select(selectedTipoCuenta);  
+    // fill numero de cuenta
+    scopeForm.$apply( () => {
+        tef.cuentaSeleccionada = {};
+        tef.cuentaSeleccionada.numeroCuenta = String(destinatario.numeroCuenta).replace(/\D/g, '');
+    });
+    // * fill mail TODO
+    if (destinatario.mail) {
+        scopeForm.$apply( () => {
+            tef.cuentaSeleccionada.mail = destinatario.mail;
+        });
+    }
+    document.getElementsByName("emailEdit")[0].value = destinatario.mail;
+    //click continue to add
+    var addNuevoDestinatarioBtn = [...document.getElementsByClassName("btn success pull-right mr-0 ml-10")]
+    .find( e => e.innerText.includes('Continuar'));
+    addNuevoDestinatarioBtn.click();
+    
+    // add this value to the form to let the user known the selected email
+    document.getElementById("email-0").value = destinatario.mail;
+
+}
+
+
+function fill_my_form(){
+    // initDataFromBancoChile();
+    // fillForm();
+    // TODO wait for data to load without using a timeout
+    window.addEventListener("load", function(event) {
+        setTimeout( () => {
+            initDataFromBancoChile();
+            fillForm();
+        }, 3000); //TODO get rid of timer and listen to load status
+    });
+}
+
 window.addEventListener("load", function(event) {
     setTimeout( () => {
-        console.log("init")
-        // var fillBtn = document.getElementById('fillForm');
-        // fillBtn.addEventListener('click', fillForm);
-        init();
-        // fillForm(transferencia);
+        initDataFromBancoChile();
+        setTimeout( ()=> {fillForm();}, 500);
     }, 4000); //TODO get rid of timer and listen to load status
 });
