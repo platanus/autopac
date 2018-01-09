@@ -83,9 +83,14 @@ function fillSecondForm() {
   //Include TODO select
   my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
   my_frame.getElementsByName("tipo_cuenta").item(0).value = 1;
-  my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia.rut_destinatario;
-  my_frame.getElementsByName("cuenta_destino").item(0).value = transferencia.cuenta_destinatario;
-  my_frame.getElementsByName("maildestino").item(0).value = transferencia.rut_destinatario;
+  if (transferencia.destinatario){
+    if (transferencia.destinatario.rut)
+        my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia.destinatario.rut;
+    if (transferencia.destinatario.numeroCuenta)
+        my_frame.getElementsByName("cuenta_destino").item(0).value = transferencia.destinatario.numeroCuenta;
+    if (transferencia.destinatario.mail)
+        my_frame.getElementsByName("maildestino").item(0).value = transferencia.destinatario.mail;
+  }
   my_frame.getElementsByName("monto").item(0).value = tranferencia.monto;
   my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL";
 
@@ -94,7 +99,7 @@ function fillSecondForm() {
     my_frame.getElementsByName("Aceptar").item(0).click();
   }, 1000);
 
-}
+};
 
 
 //a.value=arr.filter(x=> x.value.match("3"))[0].value
@@ -105,7 +110,7 @@ function fillSecondForm() {
 //Take the first match
 //a.value = arr.find(x=> x.value.toLowerCase.match(my_bank.toLowerCase())).value
 
-funtions selectBank(selectElement){
+function selectBank(selectElement){
   var arr = Array.prototype.slice.call( selectElement.options )
-  selectElement.value = arr.find(x=> x.value.toLowerCase.match(my_bank.toLowerCase())).value
+  selectElement.value = arr.find(x=> x.value.toLowerCase().match(my_bank.toLowerCase())).value
 }
