@@ -7,11 +7,14 @@
 // TODO eliminar datos predeterminados de mi mama :)
 const TRANSFERENCIA_DEFAULT = {
     origen: {},
-    destinatario: {},
+    destinatario: {
+        nombre: "asd",
+        rut: "8.199.935-k",
+        mail: "fitnual_test@fintual.com",
+        cuenta: "111111111",
+        banco: "banco de chile"
+    },
     monto: 50000,
-    rut_destinatario: "8.199.935-k",
-    mail_destinatario: "fitnual_test@fintual.com",
-    cuenta_destinatario: "111111111",
     programacion: {
         fechaInicio: "12-02-2018",
         fechaTermino: "05-09-2019",
