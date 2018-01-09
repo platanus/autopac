@@ -1,4 +1,9 @@
-// valor de transferencia por defecto
+/**
+ *  Receives transferencia data from the extension and loads it
+ * to the page's script.
+ */
+
+// default value of transferencia
 // TODO eliminar datos predeterminados de mi mama :)
 const TRANSFERENCIA_DEFAULT = {
     origen: {},
@@ -17,15 +22,20 @@ const TRANSFERENCIA_DEFAULT = {
 // transferencia es variable global
 window.transferencia = TRANSFERENCIA_DEFAULT;
 
-// recibe valor de la transferencia desde la extension
-window.addEventListener("message", function(event) {
-    window.transferencia = JSON.parse(event.data.message)
-    console.log("recibido transferencia", transferencia);
-    window.transferencia.rutDestinatario && (window.transferencia.rut_destinatario = window.transferencia.rutDestinatario);
-    window.transferencia.programacion = {}
+// request transferencia from the extension's storage
+function getTransferenciaFromContentScript() {
+    let event = document.createEvent('Event');
+    event.initEvent('getTransferencia');
+    document.dispatchEvent(event);
+}
 
-    //TODO comentar esto
-    window.transferencia.frecuencia && (window.transferencia.programacion.frecuencia = window.transferencia.frecuencia);
-    window.transferencia.fechaInicio && (window.transferencia.programacion.fechaInicio = window.transferencia.fechaInicio);
-    window.transferencia.fechaTermino && (window.transferencia.programacion.fechaTermino = window.transferencia.fechaTermino);
+// listens for the message that contains the transferencia data
+window.addEventListener("message", function(event) {
+    // only listen to autopac messages with data
+    if (event.data.from != "autopac" || !event.data.transferencia)
+        return;
+    // assign the global variable transferencia
+    window.transferencia = event.data.transferencia;
 });
+
+// TODO sendTransferenciaToContentScript() to send data to the extension 

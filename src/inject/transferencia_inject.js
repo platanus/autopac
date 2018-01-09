@@ -1,3 +1,8 @@
+/**
+ *  Script that that sends messages with the transferencia data to the 
+ * website. It must inject the client side first on the website.
+ */
+
 // inject transferencia_fun script to page script
 var script_transferencia = document.createElement('script');
 // TODO: add "<script>.js" to web_accessible_resources in manifest.json
@@ -7,34 +12,30 @@ script_transferencia.onload = function() {
 };
 (document.head || document.documentElement).appendChild(script_transferencia);
 
-// transferencia messanger 
-const TRANSFERENCIA_DEFAULT = {
-    origen: {},
-    destinatario: {},
-    monto: 50000,
-    rut_destinatario: "8.199.935-k",
-    programacion: {
-        fechaInicio: "12-02-2018",
-        fechaTermino: "05-09-2019",
-        frecuencia: "MENSUAL"
-    }
-};
+// logic behind the interaction between the webpage and the content script from the extension
+var transferencia = null;
+// get transferencia from storage, resolves when loaded
+function loadTransferenciaFromStorage() {
+    return new Promise( function(resolve, reject) {
+        chrome.storage.local.get("transferencia", data => {
+            data && (transferencia = data.transferencia); // if transferencia exists in local storage
+            resolve(transferencia);
+        });
+    });
+}
 
-var transferencia = TRANSFERENCIA_DEFAULT;
-//Get transgerencia from storage
-chrome.storage.local.get("transferencia", t => {
-    if (t){
-        transferencia = t.transferencia;
-    }
-    else { 
-        transferencia = TRANSFERENCIA_DEFAULT;
-    }
+// send message with transferencia data to page script
+function sendTransferenciaToPageScript() {
+    loadTransferenciaFromStorage()
+    .then( transferencia => { 
+        window.postMessage({ // send message to page script
+            from: "autopac", // from autopac extension
+            transferencia: transferencia
+          }, "*"); // to any targetOrigin
+    });
+}
+
+// return transferencia as requested 
+document.addEventListener("getTransferencia", (event) => {
+    sendTransferenciaToPageScript();
 });
-
-// TODO eliminar timeout y esperar a que la pagina pregunte por el valor de la transferencia
-setTimeout( () => {
-    window.postMessage({
-        from: "autopac",
-        message: JSON.stringify(transferencia)
-      }, "*");
-    }, 300);

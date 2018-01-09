@@ -1,12 +1,28 @@
-//TODO agregar neuvos campos, cuenta destino, mail, etc
-class Transferencia {
+// helper class that syncs the form with the data of the options page
+class TransferenciaOptions {
 
+    // initialize form data from another transferencia 
     constructor(obj){
-        obj && Object.entries(obj).forEach( attr => {
-            this[attr[0]] = attr[1];
-        });
-    }
+        if (!obj) return;
+        obj.monto && (this.monto = obj.monto);
+        this.destinatario = {};
+        if (obj.destinatario) {
+            obj.destinatario.rut && (this.rutDestinatario = obj.destinatario.rut);
+            obj.destinatario.banco && (this.bancoDestinatario = obj.destinatario.banco);
+            obj.destinatario.nombre && (this.nombreDestinatario = obj.destinatario.nombre);
+            obj.destinatario.numeroCuenta && (this.numeroCuentaDestinatario = obj.destinatario.numeroCuenta);
+            obj.destinatario.tipoCuenta && (this.tipoCuentaDestinatario = obj.destinatario.tipoCuenta);
+            obj.destinatario.mail && (this.mailDestinatario = obj.destinatario.mail);
 
+        }
+        this.programacion = {};
+        if (obj.programacion) {
+            obj.programacion.frecuencia && (this.frecuencia = obj.programacion.frecuencia);
+            obj.programacion.fechaInicio && (this.fechaInicio = obj.programacion.fechaInicio);
+            obj.programacion.fechaTermino && (this.fechaTermino = obj.programacion.fechaTermino);
+        }
+    }
+    // Setters and getter helper functions to get and set data to the form 
     get monto(){
         return document.getElementById("monto").value
     }
@@ -38,34 +54,81 @@ class Transferencia {
     set rutDestinatario(val){
         document.getElementById("rutDestinatario").value = val;
     }
+    get bancoDestinatario(){
+        return document.getElementById("bancoDestinatario").value
+    }
+    set bancoDestinatario(val){
+        document.getElementById("bancoDestinatario").value = val;
+    }
+    get nombreDestinatario(){
+        return document.getElementById("nombreDestinatario").value
+    }
+    set nombreDestinatario(val){
+        document.getElementById("nombreDestinatario").value = val;
+    }
+    get numeroCuentaDestinatario(){
+        return document.getElementById("numeroCuentaDestinatario").value
+    }
+    set numeroCuentaDestinatario(val){
+        document.getElementById("numeroCuentaDestinatario").value = val;
+    }
+    get tipoCuentaDestinatario(){
+        return document.getElementById("tipoCuentaDestinatario").value
+    }
+    set tipoCuentaDestinatario(val){
+        document.getElementById("tipoCuentaDestinatario").value = val;
+    }
+    get mailDestinatario(){
+        return document.getElementById("mailDestinatario").value
+    }
+    set mailDestinatario(val){
+        document.getElementById("mailDestinatario").value = val;
+    }
 
+
+    // returns raw data of the object (without setters and gettes) 
     toObject() {
         let obj = {};
         this.monto && (obj.monto = this.monto);
-        this.rutDestinatario && (obj.rutDestinatario = this.rutDestinatario);
-        this.frecuencia && (obj.frecuencia = this.frecuencia);
-        this.fechaInicio && (obj.fechaInicio = this.fechaInicio);
-        this.fechaTermino && (obj.fechaTermino = this.fechaTermino);
+
+        obj.destinatario = {};
+        this.rutDestinatario && (obj.destinatario.rut = this.rutDestinatario);
+        this.bancoDestinatario && (obj.destinatario.banco = this.bancoDestinatario);
+        this.nombreDestinatario && (obj.destinatario.nombre = this.nombreDestinatario);
+        this.numeroCuentaDestinatario && (obj.destinatario.numeroCuenta = this.numeroCuentaDestinatario);
+        this.tipoCuentaDestinatario && (obj.destinatario.tipoCuenta = this.tipoCuentaDestinatario);
+        this.mailDestinatario && (obj.destinatario.mail = this.mailDestinatario);
+        
+        obj.programacion = {};
+        this.frecuencia && (obj.programacion.frecuencia = this.frecuencia);
+        this.fechaInicio && (obj.programacion.fechaInicio = this.fechaInicio);
+        this.fechaTermino && (obj.programacion.fechaTermino = this.fechaTermino);
 
         return obj;
     }
 }
 
-var transferencia = new Transferencia();
-var t = transferencia;
 
-function saveTransferencia(){
-    chrome.storage.local.set({"transferencia": transferencia.toObject()});
+// object that contains the data of the tranferencia 
+var transferencia = new TransferenciaOptions();
+
+var storage = chrome.storage.local; //alias 
+// saves the transferencia data to the local storage
+function saveTransferenciaToLocalStorage(){
+    storage.set({"transferencia": transferencia.toObject()});
 }
-
-function getTransferencia(){
-    chrome.storage.local.get("transferencia", function(x) {
-        transferencia = new Transferencia(x.transferencia)
+// loads the data from the local storage
+function loadTransferenciaFromLocalStorage(){
+    storage.get("transferencia", (data) => {
+        transferencia = new TransferenciaOptions(data.transferencia)
     });
 }
+// add logic to the option page buttons
+document.getElementById('save').addEventListener('click', saveTransferenciaToLocalStorage);
+document.getElementById('get').addEventListener('click', loadTransferenciaFromLocalStorage);
+loadTransferenciaFromLocalStorage();
 
 
-var storage = chrome.storage.local;
-document.getElementById('save').addEventListener('click', saveTransferencia);
-document.getElementById('get').addEventListener('click', getTransferencia);
-getTransferencia();
+
+
+
