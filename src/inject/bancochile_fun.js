@@ -2,13 +2,6 @@
  * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
  */
 
-
- function fill_my_form(){
-    initDataFromBancoChile();
-    fillForm(transferencia)
-}
-
-
 var scopeForm;
 var tef;
 var tefForm;
@@ -142,18 +135,6 @@ function waitFrecuenciaTransferencias() {
     });
 }
 
-// TODO wait for data to load without using a timeout
-window.addEventListener("load", function(event) {
-    setTimeout( () => {
-        console.log("init")
-        // var fillBtn = document.getElementById('fillForm');
-        // fillBtn.addEventListener('click', fillForm);
-        initDataFromBancoChile();
-        // fillForm(transferencia);
-    }, 4000); //TODO get rid of timer and listen to load status
-});
-
-
 function addNuevoDestinatario(destinatario) {
     // get the radial button and click it
     var nuevoDestinatarioBtn = [...document.getElementsByClassName("btn-animado success-btn text-info")]
@@ -204,3 +185,23 @@ function addNuevoDestinatario(destinatario) {
     document.getElementById("email-0").value = destinatario.mail;
 
 }
+
+
+function fill_my_form(){
+    // initDataFromBancoChile();
+    // fillForm();
+    // TODO wait for data to load without using a timeout
+    window.addEventListener("load", function(event) {
+        setTimeout( () => {
+            initDataFromBancoChile();
+            fillForm();
+        }, 3000); //TODO get rid of timer and listen to load status
+    });
+}
+
+window.addEventListener("load", function(event) {
+    setTimeout( () => {
+        initDataFromBancoChile();
+        setTimeout( ()=> {fillForm();}, 500);
+    }, 4000); //TODO get rid of timer and listen to load status
+});
