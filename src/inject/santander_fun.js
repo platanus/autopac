@@ -1,12 +1,12 @@
 var transferencia = window.transferencia;
 
+
 var my_date = new Date(transferencia.programacion.fechaInicio);
 var inicio = {
     diainicio : my_date.getDate(),
     mesinicio : my_date.getMonth(),
     anoinicio : my_date.getYear()
   };
-
 my_date = new Date(transferencia.programacion.fechaTermino);
 var fin = {
     diatermino : my_date.getDate(),
@@ -50,7 +50,9 @@ function fillFirstForm() {
   my_frame.getElementsByName("diames").item(0).value = 1;
   //First payment
   my_frame.getElementsByName("diainicio").item(0).value = inicio.diainicio;
+  //Months go from 0 to 10, the select need months as 2 digits string
   my_frame.getElementsByName("mesinicio").item(0).value = (inicio.mesinicio+1).toString().padStart(2, "0");
+  //getMonth() returns (year - 1900)
   my_frame.getElementsByName("anoinicio").item(0).value = inicio.anoinicio + 1900;
 
    //Last payment
