@@ -5,6 +5,10 @@
 
 // default value of transferencia
 // TODO eliminar datos predeterminados de mi mama :)
+var tomorrow = new Date();
+var today  = new Date();
+tomorrow.setDate(today.getDate()+1);
+
 const TRANSFERENCIA_DEFAULT = {
     origen: {},
     destinatario: {
@@ -16,8 +20,9 @@ const TRANSFERENCIA_DEFAULT = {
     },
     monto: 50000,
     programacion: {
-        fechaInicio: "12-02-2018",
-        fechaTermino: "05-09-2019",
+        //mm-dd-yyyy
+        fechaInicio: "".concat(tomorrow.getMonth()+1,"-",tomorrow.getDate() ,"-",tomorrow.getYear()+1900),
+        fechaTermino: "".concat(tomorrow.getMonth()+1,"-",tomorrow.getDate() ,"-",tomorrow.getYear() +1901),
         frecuencia: "MENSUAL"
     }
 };
@@ -41,4 +46,4 @@ window.addEventListener("message", function(event) {
     window.transferencia = event.data.transferencia;
 });
 
-// TODO sendTransferenciaToContentScript() to send data to the extension 
+// TODO sendTransferenciaToContentScript() to send data to the extension
