@@ -105,12 +105,12 @@ function fillSecondForm() {
 //a.value=arr.filter(x=> x.value.match("3"))[0].value
 
 //Find the elemet that match our bank and change the select value
-//var a=  my_frame.getElementsByName("mesinicio").item(0)
-//var arr = Array.prototype.slice.call( a.options )
+//var selectElement =  my_frame.getElementsByName("mesinicio").item(0)
+//var arr = Array.prototype.slice.call( selectElement.options )
 //Take the first match
 //a.value = arr.find(x=> x.value.toLowerCase.match(my_bank.toLowerCase())).value
 
-function selectBank(selectElement){
+function selectBank(selectElement, my_bank){
   var arr = Array.prototype.slice.call( selectElement.options )
   selectElement.value = arr.find(x=> x.value.toLowerCase().match(my_bank.toLowerCase())).value
 }
