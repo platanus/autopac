@@ -13,10 +13,11 @@ const TRANSFERENCIA_DEFAULT = {
     origen: {},
     destinatario: {
         nombre: "asd",
-        rut: "8.199.935-k",
+        rut: "8.388.364-2",
         mail: "fitnual_test@fintual.com",
-        cuenta: "111111111",
-        banco: "banco de chile"
+        numeroCuenta: "111111111",
+        banco: "banco de chile",
+        tipoCuenta: "corriente"
     },
     monto: 50000,
     programacion: {
