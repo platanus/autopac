@@ -2,6 +2,24 @@
  * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
  */
 
+
+function checkLoadings() {
+    let scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
+    let tef = scopeForm.tef; // TransferenciasTercerosCtrl
+
+    return new Promise( function(resolve, reject) {
+        var checkFlag = () => {
+            !tef.isLoadingSelector && 
+            !tef.loadingTransferencia && 
+            !tef.loadingCajaDesafio ? resolve() : setTimeout(checkFlag, 100);
+        }
+        checkFlag();
+    });
+}
+
+
+
+
 var scopeForm;
 var tef;
 var tefForm;
@@ -187,21 +205,13 @@ function addNuevoDestinatario(destinatario) {
 }
 
 
+
 function fill_my_form(){
     // initDataFromBancoChile();
     // fillForm();
     // TODO wait for data to load without using a timeout
-    window.addEventListener("load", function(event) {
-        setTimeout( () => {
-            initDataFromBancoChile();
-            fillForm();
-        }, 3000); //TODO get rid of timer and listen to load status
+    checkLoadings().then( () => {
+        initDataFromBancoChile();
+        fillForm();
     });
 }
-
-window.addEventListener("load", function(event) {
-    setTimeout( () => {
-        initDataFromBancoChile();
-        setTimeout( ()=> {fillForm();}, 500);
-    }, 4000); //TODO get rid of timer and listen to load status
-});
