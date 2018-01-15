@@ -29,14 +29,14 @@ JSON file that contains the properties in the extension (name, version, icons, t
 
 ### Background
 
-bg/background.js enable the script in specific pages and load different popups for different pages.
+```bg/background.js``` enable the script in specific pages and load different popups for different pages.
 
 ### Browser Action
 
-src/browser_action directory contains the popup HTML and the java script files with the Autopac listeners and functions.
+```src/browser_action``` directory contains the popup HTML and the java script files with the Autopac listeners and functions.
 
 ### Inject
 
-src/inject  contains all the script injected in the bank pages, this scripts fill the forms and are unique for each bank.
+```src/inject```  contains all the script injected in the bank pages, this scripts fill the forms and are unique for each bank.
 
 ## Basic Usage
