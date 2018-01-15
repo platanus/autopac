@@ -5,38 +5,38 @@
 function getMatches(callback){
   var matches;
   $.getJSON('src/browser_action/active_pages.json', json => {
-    var array_exp = new Array(); 
+    var array_exp = new Array();
     for (var name in json) {
-     array_exp.push(json[name].domain);                
+     array_exp.push(json[name].domain);
     }
     matches = array_exp.join("|");
     //console.log(matches);
     if (callback) {
-      callback(matches)        
+      callback(matches)
     }
   });
 }
 
-function getNonBanks(callback){
-  var nonBanks;
+function getRequesters(callback){
+  var requesters;
   $.getJSON('src/browser_action/active_pages.json', json => {
-    var array_exp = new Array(); 
+    var array_exp = new Array();
     for (var name in json) {
-        if (json[name].type == "externo") {
-            array_exp.push(json[name].domain);  
-        }              
+        if (json[name].type == "requester") {
+            array_exp.push(json[name].domain);
+        }
     }
-    nonBanks = array_exp.join("|");
-    console.log(nonBanks);
+    requesters = array_exp.join("|");
+    //console.log(requesters);
     if (callback) {
-      callback(nonBanks)        
+      callback(requesters)
     }
   });
 }
 
 chrome.runtime.onInstalled.addListener(function() {
   // Replace all rules
-  getMatches(page_matches => { 
+  getMatches(page_matches => {
       chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
         chrome.declarativeContent.onPageChanged.addRules([
           {
@@ -54,14 +54,14 @@ chrome.runtime.onInstalled.addListener(function() {
   });
 });
 
-// React when a browser action's icon is clicked.
+// React when open or refresh a tab
 
 chrome.tabs.onUpdated.addListener(function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
       var myTab = tabs[0];
-      getNonBanks(nonBanks => { 
+      getRequesters(requesters => {
           // Select the HTML popup for each page
-          if (myTab.url.match(new RegExp(nonBanks))) { 
+          if (myTab.url.match(new RegExp(requesters))) {
             chrome.pageAction.setPopup({tabId: myTab.id, popup: 'src/browser_action/fintual_action.html'});
           }
           else {

@@ -1,6 +1,7 @@
 {
   "name": "Autopac",
-  "version": "0.0.2",
+  "short_name": "Autopac", 
+  "version": "0.0.4",
   "manifest_version": 2,
   "description": "Put description here",
   "homepage_url": "https://platan.us/",
@@ -17,15 +18,14 @@
     ],
     "persistent": false
   },
-  "options_page": "src/options/index.html",
+  "options_page": "src/options/options.html",
   "page_action": {
     "default_icon": "icons/icon19.png",
     "default_title": "browser/page action demo"
   },
   "permissions": [
-    "cookies",
-    "notifications",
     "tabs",
+    "storage",
     "declarativeContent",
     "activeTab",
     "http://*/*",
@@ -34,25 +34,32 @@
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
-        "https://*/*" 
+        "https://www.santander.cl/transa/segmentos/Menu/*",
+        "https://portalpersonas.bancochile.cl/*"
       ],
       "js": [
-        "src/inject/inject.js"
-      ],
-      "css" : [
-        "src/inject/inject.css",
-        "js/mdl/material.min.css"
+        "src/inject/transferencia_inject.js"
       ]
     },
     {
       "matches": [
-        "https://login.bancochile.cl/*" 
+        "https://www.santander.cl/transa/segmentos/Menu/*"
       ],
       "js": [
-        "src/browser_action/inject_button.js"
+        "src/inject/santander_inject.js"
+      ]
+    },
+    {
+      "matches": [
+        "https://portalpersonas.bancochile.cl/*"
+      ],
+      "js": [
+        "src/inject/bancochile_inject.js"
       ]
     }
   ],
-  "web_accessible_resources": ["src/inject/aux_fun.js"]
+  "web_accessible_resources": [
+    "src/inject/transferencia_fun.js",
+    "src/inject/santander_fun.js", 
+    "src/inject/bancochile_fun.js"]
 }
