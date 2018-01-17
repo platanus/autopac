@@ -86,7 +86,8 @@ function fillButton() {
 //Santander dont change its URL, need a fun
 function santanderForm(form_url) {
   chrome.tabs.executeScript({
-    code: 'location.href="javascript:try {goToSantanderForm(); void 0;} catch (e) { throw new Error();}";'
+    //code: 'location.href="javascript:try {goToSantanderForm(); void 0;} catch (e) { throw new Error();}";'
+    code: 'location.href="javascript:goToSantanderForm(); void 0";'
   });
 }
 
