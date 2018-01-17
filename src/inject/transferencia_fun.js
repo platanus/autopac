@@ -7,12 +7,14 @@
 // TODO eliminar datos predeterminados de mi mama :)
 var tomorrow = new Date();
 var today  = new Date();
+var oneYear = new Date();
 tomorrow.setDate(today.getDate()+1);
+oneYear.setDate(today.getDate()+366);
 
 const TRANSFERENCIA_DEFAULT = {
     origen: {},
     destinatario: {
-        nombre: "asd",
+        nombre: "Fintual",
         rut: "8.388.364-2",
         mail: "fitnual_test@fintual.com",
         numeroCuenta: "111111111",
@@ -22,8 +24,8 @@ const TRANSFERENCIA_DEFAULT = {
     monto: 50000,
     programacion: {
         //mm-dd-yyyy
-        fechaInicio: "".concat(tomorrow.getMonth()+1,"-",tomorrow.getDate() ,"-",tomorrow.getYear()+1900),
-        fechaTermino: "".concat(tomorrow.getMonth()+1,"-",tomorrow.getDate() ,"-",tomorrow.getYear() +1901),
+        fechaInicio: tomorrow,
+        fechaTermino: oneYear,
         frecuencia: "MENSUAL"
     }
 };

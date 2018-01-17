@@ -1,7 +1,7 @@
 var transferencia = window.transferencia;
 
-
 var my_date = new Date(transferencia.programacion.fechaInicio);
+
 var inicio = {
     diainicio : my_date.getDate(),
     mesinicio : my_date.getMonth(),
@@ -112,5 +112,6 @@ function fillSecondForm() {
 
 function selectBank(selectElement, my_bank){
   var arr = Array.prototype.slice.call( selectElement.options )
+  // Change the value that matches
   selectElement.value = arr.find(x=> x.value.toLowerCase().match(my_bank.toLowerCase())).value
 }

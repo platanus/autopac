@@ -49,22 +49,28 @@ function openForm(json,bank_key) {
 
 // Add listener for main button
 document.addEventListener('DOMContentLoaded', function() {
-  var mainButton = document.getElementById('mainButton');
+  var mainButton = document.getElementById('main-button');
 
   getPage(bank_name => {
     $.getJSON("active_pages.json", json => {
-      document.getElementById("text-holder").innerHTML += "<p> Origen:" + json[bank_name].name + "</p>";
 
-
+      chrome.storage.local.get('transferencia', result => {       
+        var transferencia = result.transferencia;
+        document.getElementById("text-holder").innerHTML += transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;       
+      });
       // onClick's logic below:
       mainButton.addEventListener('click', function() {
         // Open form to fill in the same tab
+        
         openForm(json, bank_name);
+
 
         //wait until the page is loaded
         setTimeout(() => {
           fillButton();
         }, 3000);
+        document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
+        document.getElementById("main-button").innerHTML = "OK"
       });
     });
   });
@@ -80,7 +86,7 @@ function fillButton() {
 //Santander dont change its URL, need a fun
 function santanderForm(form_url) {
   chrome.tabs.executeScript({
-    code: 'location.href="javascript:goToSantanderForm(); void 0";'
+    code: 'location.href="javascript:try {goToSantanderForm(); void 0;} catch (e) { throw new Error();}";'
   });
 }
 

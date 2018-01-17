@@ -2,7 +2,7 @@
 const TRANSFERENCIA_DEFAULT = {
     origen: {},
     destinatario: {
-        nombre: "asd",
+        nombre: "Fintual options",
         rut: "8.199.935-k",
         mail: "fitnual_test@fintual.com",
         numeroCuenta: "111111111",
@@ -11,7 +11,7 @@ const TRANSFERENCIA_DEFAULT = {
     },
     monto: 50000,
     programacion: {
-        fechaInicio: "2018-02-03",
+        fechaInicio: new Date("2018-02-03"),
         fechaTermino: "2019-05-06",
         frecuencia: "mensual"
     }
