@@ -23,6 +23,13 @@
     "default_icon": "icons/icon19.png",
     "default_title": "browser/page action demo"
   },
+
+  "externally_connectable": {
+    "matches": [
+    	"https://www.santander.cl/transa/segmentos/Menu/*",
+      "https://portalpersonas.bancochile.cl/*"
+    ]
+  },
   "permissions": [
     "tabs",
     "storage",

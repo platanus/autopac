@@ -69,12 +69,26 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
           fillButton();
         }, 3000);
-        document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
-        document.getElementById("main-button").innerHTML = "OK"
+
+        setTimeout(() => {
+          document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
+          document.getElementById("main-button").style.display = "none";
+          document.getElementById("ok-button").style.display = "inline";
+        }, 1000);
       });
     });
   });
+});
 
+// Add listener for OK button
+document.addEventListener('DOMContentLoaded', function() {
+  var okButton = document.getElementById('ok-button');
+
+  // onClick's logic below:
+  okButton.addEventListener('click', function() {
+    //Close popup
+    window.close();
+  });
 });
 
 function fillButton() {

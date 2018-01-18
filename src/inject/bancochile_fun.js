@@ -1,8 +1,6 @@
 /**
  * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
  */
-
-
 function checkLoadings() {
     let scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     let tef = scopeForm.tef; // TransferenciasTercerosCtrl
@@ -17,9 +15,6 @@ function checkLoadings() {
     });
 }
 
-
-
-
 var scopeForm;
 var tef;
 var tefForm;
@@ -32,7 +27,10 @@ var freqItems;
 
 // initialize data from the webpage form
 function initDataFromBancoChile() {
-    getTransferenciaFromContentScript();
+    //getTransferenciaFromContentScript();
+    chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
+        window.transferencia = response;
+    });
     // Angularjs scope's objects used 
     scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
@@ -95,10 +93,12 @@ function programarFrecuencia(programacion) {
             fillProgramacionFrecuencia(programacion.frecuencia);
         }
         if (programacion.fechaInicio) {
-            fillFechaInicio(programacion.fechaInicio);
+            var inicio = new Date(programacion.fechaInicio)
+            fillFechaInicio(inicio);
         }
         if (programacion.fechaTermino) {
-            fillFechaTermino(programacion.fechaTermino);
+            var fin = new Date(programacion.fechaTermino)
+            fillFechaTermino(fin);
         }
     });
 }
@@ -133,7 +133,6 @@ function findFreqElement(nombre, freqList) {
     var strip = s => { return String(s).toLocaleLowerCase()};
     return freqList.find( f => { return strip(nombre) == strip(f.nombre) } );
 }
-
 
 function waitStep1() {
     return new Promise( function(resolve, reject) {

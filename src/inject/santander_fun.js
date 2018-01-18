@@ -1,21 +1,38 @@
-var transferencia = window.transferencia;
+var transferencia = null;
+var inicio = null;
+var fin = null;
+/*
+chrome.storage.local.get('transferencia', result => {        
+        console.log(result.transferencia);
+});
+*/
 
-var my_date = new Date(transferencia.programacion.fechaInicio);
 
-var inicio = {
-    diainicio : my_date.getDate(),
-    mesinicio : my_date.getMonth(),
-    anoinicio : my_date.getYear()
-  };
-my_date = new Date(transferencia.programacion.fechaTermino);
-var fin = {
-    diatermino : my_date.getDate(),
-    mestermino : my_date.getMonth(),
-    anotermino : my_date.getYear()
-  };
 
-function fill_my_form() {
+
+function fill_my_form2() {
   fillFirstForm();
+}
+
+function fill_my_form(){
+  chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
+
+    var my_date = new Date(response.programacion.fechaInicio);
+    inicio = {
+        diainicio : my_date.getDate(),
+        mesinicio : my_date.getMonth(),
+        anoinicio : my_date.getYear()
+      };
+
+    my_date = new Date(response.programacion.fechaTermino);
+    fin = {
+        diatermino : my_date.getDate(),
+        mestermino : my_date.getMonth(),
+        anotermino : my_date.getYear()
+      };
+    
+    fillFirstForm();
+  });
 }
 
 /*Script para completar banco Santander*/
@@ -47,7 +64,7 @@ function fillFirstForm() {
   my_frame.getElementById("TipoAgenda_2").click();
   my_frame.getElementById("TipoPeriodica_3").click();
 
-  my_frame.getElementsByName("diames").item(0).value = 1;
+  my_frame.getElementsByName("diames").item(0).value = inicio.diainicio;
   //First payment
   my_frame.getElementsByName("diainicio").item(0).value = inicio.diainicio;
   //Months go from 0 to 10, the select need months as 2 digits string
@@ -62,10 +79,10 @@ function fillFirstForm() {
   my_frame.getElementsByName("mestermino").item(0).value = (fin.mestermino+1).toString().padStart(2, "0");
   my_frame.getElementsByName("anotermino").item(0).value = fin.anotermino+ 1900;
 
-  //Sleep for 1 second, the user can check the form
+  //Sleep for .5 second, the user can check the form
   setTimeout(() => {
     my_frame.getElementsByName("Continuar").item(0).click();
-  }, 1000);
+  }, 500);
 
   waitStep1().then(() => {
     console.log("next form!");
@@ -94,10 +111,10 @@ function fillSecondForm() {
   my_frame.getElementsByName("monto").item(0).value = tranferencia.monto;
   my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL";
 
-  //Sleep for 1 second, the user can check the form
+  //Sleep for .5 second, the user can check the form
   setTimeout(() => {
     my_frame.getElementsByName("Aceptar").item(0).click();
-  }, 1000);
+  }, 500);
 
 };
 
