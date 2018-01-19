@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       chrome.storage.sync.get('transfer', result => {       
         var transferencia = result.transfer;
-        document.getElementById("text-holder").innerHTML += transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;       
+        document.getElementById("text-holder").innerHTML += "<br>"+ transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;       
       });
       // onClick's logic below:
       mainButton.addEventListener('click', function() {
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
           document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
           document.getElementById("main-button").style.display = "none";
           document.getElementById("ok-button").style.display = "inline";
-        }, 1000);
+        }, 1500);
       });
     });
   });

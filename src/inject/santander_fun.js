@@ -7,13 +7,6 @@ chrome.storage.local.get('transferencia', result => {
 });
 */
 
-
-
-
-function fill_my_form2() {
-  fillFirstForm();
-}
-
 function fill_my_form(){
   chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
     transferencia = response;
