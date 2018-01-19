@@ -1,7 +1,7 @@
 {
   "name": "Autopac",
   "short_name": "Autopac", 
-  "version": "0.0.4",
+  "version": "0.0.5",
   "manifest_version": 2,
   "description": "Put description here",
   "homepage_url": "https://platan.us/",
@@ -27,7 +27,8 @@
   "externally_connectable": {
     "matches": [
     	"https://www.santander.cl/transa/segmentos/Menu/*",
-      "https://portalpersonas.bancochile.cl/*"
+      "https://portalpersonas.bancochile.cl/*",
+      "https://hawkline451.github.io/tmpRepo/"
     ]
   },
   "permissions": [

@@ -31,7 +31,7 @@ const TRANSFERENCIA_DEFAULT = {
 };
 
 // transferencia es variable global
-window.transferencia = TRANSFERENCIA_DEFAULT;
+//window.transferencia = TRANSFERENCIA_DEFAULT;
 
 // request transferencia from the extension's storage
 function getTransferenciaFromContentScript() {

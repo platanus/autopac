@@ -21,7 +21,7 @@ function getDefault(){
           banco: "banco de chile",
           tipoCuenta: "corriente"
       },
-      monto: 50000,
+      monto: 50001,
       programacion: {
           //mm-dd-yyyy
           fechaInicio: tomorrow.toDateString(),
@@ -106,13 +106,23 @@ chrome.tabs.onUpdated.addListener(function() {
     });
 });
 
-chrome.runtime.onMessageExternal.addListener(  
+chrome.runtime.onMessageExternal.addListener( 
   function(request, sender, sendResponse) {    
     if (request.type == "getStorage"){
       chrome.storage.sync.get('transfer', result => {    
         sendResponse(result.transfer);    
         //console.log(result.transfer);
       });      
+    }
+    /*
+    var tmpData
+    chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "sendData", data:tmpData}, 
+    function(response) {});
+    */
+    if (request.type == "sendData"){
+      chrome.storage.sync.set({"transfer": request.data});
+      sendResponse(); 
+      console.log("hey");
     }
     return true
   });

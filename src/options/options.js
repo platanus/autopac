@@ -40,6 +40,11 @@ function loadTransferenciaFromLocalStorage(){
 // add logic to the option page buttons
 document.getElementById('save').addEventListener('click', saveTransferenciaToLocalStorage);
 document.getElementById('get').addEventListener('click', loadTransferenciaFromLocalStorage);
+document.getElementById('send').addEventListener('click', sendToStorage);
+
+function sendToStorage(){
+    console.log("sup");
+}
 loadTransferenciaFromLocalStorage();
 
 

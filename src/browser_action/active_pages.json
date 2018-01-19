@@ -22,5 +22,13 @@
         "extension_domain": "fintual.cl",
         "form_url": "",
         "type": "requester"
+    },
+    "test":
+    {
+        "name": "test",
+        "domain": "hawkline451.github.io/tmpRepo/",
+        "extension_domain": "hawkline451.github.io/tmpRepo/",
+        "form_url": "",
+        "type": "requester"
     }
 }

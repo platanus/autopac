@@ -24,13 +24,11 @@ var scopeFreq;
 var destinatarios;
 var freqItems;
 
+var transferencia = null;
 
 // initialize data from the webpage form
 function initDataFromBancoChile() {
     //getTransferenciaFromContentScript();
-    chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
-        window.transferencia = response;
-    });
     // Angularjs scope's objects used 
     scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     tef = scopeForm.tef; // TransferenciasTercerosCtrl
@@ -209,8 +207,12 @@ function fill_my_form(){
     // initDataFromBancoChile();
     // fillForm();
     // TODO wait for data to load without using a timeout
-    checkLoadings().then( () => {
-        initDataFromBancoChile();
-        fillForm();
+    chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
+        transferencia = response;
+    
+        checkLoadings().then( () => {
+            initDataFromBancoChile();
+            fillForm();
+        });
     });
 }

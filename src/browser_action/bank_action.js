@@ -38,7 +38,7 @@ function openForm(json,bank_key) {
   // Open in the same tab the form to fill
   //console.log(json[bank_key].name);
 
-  //Get the funtion of the bank
+  //Get the function for the bank
   var my_bank_fun = map[bank_key];
   //Get the form url for my bank (if exist)
   var form_url = json[bank_key].form_url;
@@ -54,8 +54,8 @@ document.addEventListener('DOMContentLoaded', function() {
   getPage(bank_name => {
     $.getJSON("active_pages.json", json => {
 
-      chrome.storage.local.get('transferencia', result => {       
-        var transferencia = result.transferencia;
+      chrome.storage.sync.get('transfer', result => {       
+        var transferencia = result.transfer;
         document.getElementById("text-holder").innerHTML += transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;       
       });
       // onClick's logic below:
@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Open form to fill in the same tab
         
         openForm(json, bank_name);
-
 
         //wait until the page is loaded
         setTimeout(() => {

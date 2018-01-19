@@ -16,15 +16,14 @@ function fill_my_form2() {
 
 function fill_my_form(){
   chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
-
-    var my_date = new Date(response.programacion.fechaInicio);
+    transferencia = response;
+    var my_date = new Date(transferencia.programacion.fechaInicio);
     inicio = {
         diainicio : my_date.getDate(),
         mesinicio : my_date.getMonth(),
         anoinicio : my_date.getYear()
       };
-
-    my_date = new Date(response.programacion.fechaTermino);
+    my_date = new Date(transferencia.programacion.fechaTermino);
     fin = {
         diatermino : my_date.getDate(),
         mestermino : my_date.getMonth(),
@@ -96,9 +95,16 @@ function fillSecondForm() {
 
   //TODO Check with real form
   my_frame.getElementsByName("numcuenta").item(0).click();
+
+
+  
   //This value is only for Santander select
-  //Include TODO select
-  my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
+  //TODO remove this shit
+  //my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
+  var selectElement =  my_frame.getElementsByName("banco").item(0);
+  selectBank(selectElement, transferencia.destinatario.banco);
+
+
   my_frame.getElementsByName("tipo_cuenta").item(0).value = 1;
   if (transferencia.destinatario){
     if (transferencia.destinatario.rut)
