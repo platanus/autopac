@@ -2,9 +2,10 @@
 Autopac is a Chrome extension that fills HTML forms automatically on bank pages, in particular fills form for scheduled or recurring payments.
 
 ### Features
-* 
-*
-*
+
+* Auto fill forms automation.
+* Payments configuration.
+* Cross messaging between chrome extension and external web page.
 
 ## Install
 
@@ -29,7 +30,7 @@ JSON file that contains the properties in the extension (name, version, icons, t
 
 ### Background
 
-```bg/background.js``` enable the script in specific pages and load different popups for different pages.
+```bg/background.js``` enable the script in specific pages and load different popups for different pages. Also contains the listener for external messages.
 
 ### Browser Action
 
@@ -45,4 +46,4 @@ JSON file that contains the properties in the extension (name, version, icons, t
 
 * Open a supported bank page log in, open the extension, check the payment data and follow the instructions.
 
-* Autopac will fill the from for scheduled payments.
+* Autopac will fill the form for scheduled payments.
