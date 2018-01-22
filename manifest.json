@@ -42,15 +42,6 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www.santander.cl/transa/segmentos/Menu/*",
-        "https://portalpersonas.bancochile.cl/*"
-      ],
-      "js": [
-        "src/inject/transferencia_inject.js"
-      ]
-    },
-    {
-      "matches": [
         "https://www.santander.cl/transa/segmentos/Menu/*"
       ],
       "js": [
@@ -67,7 +58,6 @@
     }
   ],
   "web_accessible_resources": [
-    "src/inject/transferencia_fun.js",
     "src/inject/santander_fun.js", 
     "src/inject/bancochile_fun.js"]
 }

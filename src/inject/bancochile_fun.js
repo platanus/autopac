@@ -201,12 +201,8 @@ function addNuevoDestinatario(destinatario) {
 
 }
 
-
-
 function fill_my_form(){
-    // initDataFromBancoChile();
-    // fillForm();
-    // TODO wait for data to load without using a timeout
+    // Get data from storage
     chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "getStorage"}, function(response) {
         transferencia = response;
     

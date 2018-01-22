@@ -60,8 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
       // onClick's logic below:
       mainButton.addEventListener('click', function() {
-        // Open form to fill in the same tab
-        
+        // Open form to fill in the same tab        
         openForm(json, bank_name);
 
         //wait until the page is loaded
@@ -99,7 +98,6 @@ function fillButton() {
 //Santander dont change its URL, need a fun
 function santanderForm(form_url) {
   chrome.tabs.executeScript({
-    //code: 'location.href="javascript:try {goToSantanderForm(); void 0;} catch (e) { throw new Error();}";'
     code: 'location.href="javascript:goToSantanderForm(); void 0";'
   });
 }
