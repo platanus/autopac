@@ -107,7 +107,8 @@ chrome.tabs.onUpdated.addListener(function() {
 });
 
 chrome.runtime.onMessageExternal.addListener( 
-  function(request, sender, sendResponse) {    
+  function(request, sender, sendResponse) { 
+    //<banco>_fun.js request the storage from the  web page  
     if (request.type == "getStorage"){
       chrome.storage.sync.get('transfer', result => {    
         sendResponse(result.transfer);    
@@ -119,6 +120,7 @@ chrome.runtime.onMessageExternal.addListener(
     chrome.runtime.sendMessage("ikamfbnjifbkelbmhbdkpfjkckfoelmc",{type: "sendData", data:tmpData}, 
     function(response) {});
     */
+    //requester page send dato to the extension
     if (request.type == "sendData"){
       chrome.storage.sync.set({"transfer": request.data});
       sendResponse(); 
