@@ -40,3 +40,9 @@ JSON file that contains the properties in the extension (name, version, icons, t
 ```src/inject```  contains all the script injected in the bank pages, this scripts fill the forms and are unique for each bank.
 
 ## Basic Usage
+
+* Send data from external pages to the extension storage or use the deafult values in the background.
+
+* Open a supported bank page log in, open the extension, check the payment data and follow the instructions.
+
+* Autopac will fill the from for scheduled payments.
