@@ -20,4 +20,4 @@ Para que el botón ademas complete el formulario, se deben crear dos archivos en
 
 Por último es necesario volver al manifest y agregar los match y los scripts que necesita la página. Dentro de content script es necesario agregar el match para el banco con su respectivo inject, luego se debe agregar el <banco>_fun.js dentro de web_accesible_resources, para que la pagina pueda acceder a las funciones insertadas desde la extensión.
 
-
+Para agregar datos desde paginas externas primero es necesario agregar la pagina a externally_connectable en el manifest
