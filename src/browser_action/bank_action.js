@@ -6,7 +6,7 @@ function getPage(callback) {
   chrome.tabs.query({
     active: true,
     currentWindow: true
-  }, function(tabs) {
+  }, function (tabs) {
     tabURL = tabs[0].url;
     tabTitle = tabs[0].title;
     $.getJSON('active_pages.json', json => {
@@ -27,14 +27,14 @@ function getPage(callback) {
   });
 }
 
-//map with the funtion names
+//map with the function names
 var map = {
-    santander: "santanderForm",
-    bancochile: "genericForm"
+  santander: "santanderForm",
+  bancochile: "genericForm"
 };
 
 //Open form in the same tab
-function openForm(json,bank_key) {
+function openForm(json, bank_key) {
   // Open in the same tab the form to fill
   //console.log(json[bank_key].name);
 
@@ -48,18 +48,19 @@ function openForm(json,bank_key) {
 }
 
 // Add listener for main button
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+
   var mainButton = document.getElementById('main-button');
 
   getPage(bank_name => {
     $.getJSON("active_pages.json", json => {
 
-      chrome.storage.sync.get('transfer', result => {       
+      chrome.storage.sync.get('transfer', result => {
         var transferencia = result.transfer;
-        document.getElementById("text-holder").innerHTML += "<br>"+ transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;       
+        document.getElementById("text-holder").innerHTML += "<br>" + transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;
       });
       // onClick's logic below:
-      mainButton.addEventListener('click', function() {
+      mainButton.addEventListener('click', function () {
         // Open form to fill in the same tab        
         openForm(json, bank_name);
 
@@ -79,11 +80,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add listener for OK button
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   var okButton = document.getElementById('ok-button');
 
   // onClick's logic below:
-  okButton.addEventListener('click', function() {
+  okButton.addEventListener('click', function () {
     //Close popup
     window.close();
   });
