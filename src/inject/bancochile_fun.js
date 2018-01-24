@@ -24,7 +24,7 @@ var scopeFreq;
 var destinatarios;
 var freqItems;
 
-var transferencia = null;
+var transferencia_autopac = null;
 
 // initialize data from the webpage form
 function initDataFromBancoChile() {
@@ -47,13 +47,13 @@ function initDataFromBancoChile() {
 function fillForm() {
 
     //Step 1 : Datos de la Transferencia
-    fillDestinatario(transferencia.destinatario);
-    fillMonto(transferencia.monto);
+    fillDestinatario(transferencia_autopac.destinatario);
+    fillMonto(transferencia_autopac.monto);
     // Step 2: ¿Cuándo deseas realizar la Transferencia?
     //TODO only if it's a proggrammed transfer
     waitStep1().then(() => {
         triggerProgramar();
-        programarFrecuencia(transferencia.programacion);
+        programarFrecuencia(transferencia_autopac.programacion);
     });
 }
 
@@ -203,7 +203,7 @@ function addNuevoDestinatario(destinatario) {
 function fill_my_form() {
     // Get data from storage
     chrome.runtime.sendMessage(autopac_extension_id, { type: "getStorage" }, function (response) {
-        transferencia = response;
+        transferencia_autopac = response;
 
         checkLoadings().then(() => {
             initDataFromBancoChile();

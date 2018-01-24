@@ -1,22 +1,22 @@
-var transferencia = null;
+var transferencia_autopac = null;
 var inicio = null;
 var fin = null;
 /*
-chrome.storage.local.get('transferencia', result => {        
-        console.log(result.transferencia);
+chrome.storage.local.get('transferencia_autopac', result => {        
+        console.log(result.transferencia_autopac);
 });
 */
 
 function fill_my_form() {
   chrome.runtime.sendMessage(window.autopac_extension_id, { type: "getStorage" }, function (response) {
-    transferencia = response;
-    var my_date = new Date(transferencia.programacion.fechaInicio);
+    transferencia_autopac = response;
+    var my_date = new Date(transferencia_autopac.programacion.fechaInicio);
     inicio = {
       diainicio: my_date.getDate(),
       mesinicio: my_date.getMonth(),
       anoinicio: my_date.getYear()
     };
-    my_date = new Date(transferencia.programacion.fechaTermino);
+    my_date = new Date(transferencia_autopac.programacion.fechaTermino);
     fin = {
       diatermino: my_date.getDate(),
       mestermino: my_date.getMonth(),
@@ -93,18 +93,18 @@ function fillSecondForm() {
   //TODO remove this shit
   //my_frame.getElementsByName("banco").item(0).value = "1:Banco de Chile / Edwards-Citi:1";
   var selectElement = my_frame.getElementsByName("banco").item(0);
-  selectBank(selectElement, transferencia.destinatario.banco);
+  selectBank(selectElement, transferencia_autopac.destinatario.banco);
 
   my_frame.getElementsByName("tipo_cuenta").item(0).value = 1;
-  if (transferencia.destinatario) {
-    if (transferencia.destinatario.rut)
-      my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia.destinatario.rut;
-    if (transferencia.destinatario.numeroCuenta)
-      my_frame.getElementsByName("cuenta_destino").item(0).value = transferencia.destinatario.numeroCuenta;
-    if (transferencia.destinatario.mail)
-      my_frame.getElementsByName("maildestino").item(0).value = transferencia.destinatario.mail;
+  if (transferencia_autopac.destinatario) {
+    if (transferencia_autopac.destinatario.rut)
+      my_frame.getElementsByName("RutDestinatario").item(0).value = transferencia_autopac.destinatario.rut;
+    if (transferencia_autopac.destinatario.numeroCuenta)
+      my_frame.getElementsByName("cuenta_destino").item(0).value = transferencia_autopac.destinatario.numeroCuenta;
+    if (transferencia_autopac.destinatario.mail)
+      my_frame.getElementsByName("maildestino").item(0).value = transferencia_autopac.destinatario.mail;
   }
-  my_frame.getElementsByName("monto").item(0).value = transferencia.monto;
+  my_frame.getElementsByName("monto").item(0).value = transferencia_autopac.monto;
   my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL";
 
   //Sleep for 1 second, the user can check the form
