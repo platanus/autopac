@@ -3,20 +3,15 @@
     {
         "name": "Banco de Chile",
         "domain": "bancochile.cl",
+        "extension_domain": "portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html",
         "form_url": "https://portalpersonas.bancochile.cl/mibancochile-web/front/persona/index.html#/transferencias/terceros",
-        "type": "provider"
-    },
-    "bancoestado":
-    {
-        "name": "Banco Estado",
-        "domain": "bancoestado.cl",
-        "form_url": "https://www.bancoestado.cl/imagenes/comun2008/nuevo_paglg_pers2.html",
         "type": "provider"
     },
     "santander":
     {
         "name": "Banco Santander",
         "domain": "santander.cl",
+        "extension_domain": "www.santander.cl/transa/segmentos/Menu",
         "form_url": "https://www.santander.cl/transa/segmentos/Menu/view.asp",
         "type": "provider"
     },
@@ -24,7 +19,16 @@
     {
         "name": "FINTUAL",
         "domain": "fintual.cl",
-        "form_url": "l",
+        "extension_domain": "fintual.cl",
+        "form_url": "",
+        "type": "requester"
+    },
+    "test":
+    {
+        "name": "test",
+        "domain": "hawkline451.github.io/tmpRepo/",
+        "extension_domain": "hawkline451.github.io/tmpRepo/",
+        "form_url": "",
         "type": "requester"
     }
 }
