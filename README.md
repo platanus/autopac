@@ -24,7 +24,7 @@ Autopac is a page action extension that only works with pages defined in ```src/
 
 The extension interact with the active page using content scripts and injecting functions, this functions can be used directly in the page for autolling forms.
 
-### Manifeset
+### Manifest
 
 JSON file that contains the properties in the extension (name, version, icons, type of extension ...) also contains the persmissions and the pages with available content scripts.  
 
