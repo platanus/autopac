@@ -46,6 +46,7 @@ function initDataFromBancoChile() {
 // function fillForm(transferencia) {
 function fillForm() {
 
+
     //Step 1 : Datos de la Transferencia
     fillDestinatario(transferencia_autopac.destinatario);
     fillMonto(transferencia_autopac.monto);
@@ -202,6 +203,7 @@ function addNuevoDestinatario(destinatario) {
 
 function fill_my_form() {
     // Get data from storage
+
     chrome.runtime.sendMessage(autopac_extension_id, { type: "getStorage" }, function (response) {
         transferencia_autopac = response;
 

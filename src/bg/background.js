@@ -92,8 +92,8 @@ chrome.runtime.onInstalled.addListener(function () {
 // React when open or refresh a tab
 
 chrome.tabs.onUpdated.addListener(function () {
-
-  // Inject id when extension is active into page
+  
+  // Inject id when page update extension is active into page
   var my_id = chrome.runtime.id;
   chrome.tabs.executeScript({
     code: `location.href="javascript:window.autopac_extension_id='${my_id}';void 0";`

@@ -67,13 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //wait until the page is loaded
         setTimeout(() => {
           fillButton();
-        }, 3000);
-
-        setTimeout(() => {
-          document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
-          document.getElementById("main-button").style.display = "none";
-          document.getElementById("ok-button").style.display = "inline";
-        }, 1500);
+        }, 4000);
       });
     });
   });
@@ -92,7 +86,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function fillButton() {
   chrome.tabs.executeScript({
-    code: 'location.href="javascript:fill_my_form(); void 0";'
+    code: `location.href="javascript:               \
+                          try {                     \
+                            fill_my_form();        \
+                            chrome.runtime.sendMessage(autopac_extension_id, { type: 'autopac_page_ok' }, function (response) {});\
+                            void 0;                 \
+                          }                         \
+                          catch (err) {             \
+                            chrome.runtime.sendMessage(autopac_extension_id, { type: 'autopac_page_error' }, function (response) {});\
+                          }";`
   });
 }
 
@@ -103,8 +105,26 @@ function santanderForm(form_url) {
   });
 }
 
+//go to url
 function genericForm(form_url) {
   chrome.tabs.update({
     url: form_url
   });
 }
+
+//Listener for errors in the page, only listen when popup is open
+chrome.runtime.onMessageExternal.addListener(
+  function (request, sender, sendResponse) {
+    //<banco>_fun.js request the storage from the  web page
+    if (request.type == "autopac_page_error") {
+      document.getElementById("text-holder").innerHTML = "Error <br> No se pudo completar el formulario";
+      document.getElementById("main-button").style.display = "none";
+      document.getElementById("ok-button").style.display = "inline";
+    }
+    if (request.type == "autopac_page_ok") {
+      document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
+      document.getElementById("main-button").style.display = "none";
+      document.getElementById("ok-button").style.display = "inline";
+    }
+    return true
+  });
