@@ -1,6 +1,22 @@
 /**
  * Script para autollenar el formulario de transferencias programadas de la pagina de Banco de Chile
  */
+
+
+function fill_my_form() {
+    // Get data from storage
+
+    chrome.runtime.sendMessage(autopac_extension_id, { type: "getStorage" }, function (response) {
+        transferencia_autopac = response;
+
+        checkLoadings().then(() => {
+            initDataFromBancoChile();
+            fillForm();
+            chrome.runtime.sendMessage(autopac_extension_id, { type: 'autopac_page_ok' }, function (response) {}); 
+        });
+    });
+}
+
 function checkLoadings() {
     let scopeForm = angular.element(document.forms[0]).scope(); // Form's scope
     let tef = scopeForm.tef; // TransferenciasTercerosCtrl
@@ -43,9 +59,8 @@ function initDataFromBancoChile() {
 }
 
 // auto fills the form
-// function fillForm(transferencia) {
-function fillForm() {
 
+function fillForm() {
 
     //Step 1 : Datos de la Transferencia
     fillDestinatario(transferencia_autopac.destinatario);
@@ -199,17 +214,4 @@ function addNuevoDestinatario(destinatario) {
 
     // add this value to the form to let the user known the selected email
     document.getElementById("email-0").value = destinatario.mail;
-}
-
-function fill_my_form() {
-    // Get data from storage
-
-    chrome.runtime.sendMessage(autopac_extension_id, { type: "getStorage" }, function (response) {
-        transferencia_autopac = response;
-
-        checkLoadings().then(() => {
-            initDataFromBancoChile();
-            fillForm();
-        });
-    });
 }

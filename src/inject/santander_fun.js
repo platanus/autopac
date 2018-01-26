@@ -25,6 +25,7 @@ function fill_my_form() {
 
     //Fill form with the storage data
     fillFirstForm();
+    chrome.runtime.sendMessage(autopac_extension_id, { type: 'autopac_page_ok' }, function (response) {}); 
   });
 }
 
@@ -108,9 +109,11 @@ function fillSecondForm() {
   my_frame.getElementsByName("motivomail").item(0).value = "FINTUAL";
 
   //Sleep for 1 second, the user can check the form
+  /*
   setTimeout(() => {
     my_frame.getElementsByName("Aceptar").item(0).click();
   }, 1000);
+  */
 
 };
 

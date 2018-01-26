@@ -1,7 +1,7 @@
 {
   "name": "Autopac",
   "short_name": "Autopac", 
-  "version": "0.0.8",
+  "version": "0.0.9",
   "manifest_version": 2,
   "description": "Auto completa tus formularios de pagos agendados",
   "homepage_url": "https://platan.us/",
@@ -10,7 +10,7 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "default_locale": "en",
+  "default_locale": "es",
   "background": {
     "scripts": [
       "src/bg/background.js",
