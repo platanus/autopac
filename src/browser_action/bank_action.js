@@ -106,6 +106,8 @@ function santanderForm(form_url) {
 
 //go to url
 function genericForm(form_url) {
+
+  // Always refresh page
   chrome.tabs.update({
     url: form_url
   });

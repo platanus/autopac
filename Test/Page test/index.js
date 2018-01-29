@@ -8,11 +8,13 @@ function sendToStorage(){
 }
 
 function installAutopac(){
- chrome.webstore.install("https://chrome.google.com/webstore/detail/gnhmemcbpgpoldkclcllbakonfeokdjd",successCallback, failureCallback)
+ chrome.webstore.install("https://chrome.google.com/webstore/detail/gnhmemcbpgpoldkclcllbakonfeokdjd",autopacSuccessCallback, autopacFailureCallback)
 }
 
-function successCallback(){}
-function failureCallback(){}
+function autopacSuccessCallback(){
+ location.reload() 
+}
+function autopacFailureCallback(){}
 
 function getData() {
   var obj = {};

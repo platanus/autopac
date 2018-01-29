@@ -23,8 +23,9 @@ function getDefault() {
     },
     monto: 50001,
     programacion: {
-      fechaInicio: tomorrow.toDateString(),
-      fechaTermino: oneYear.toDateString(),
+      //TODO explain this shit, trick
+      fechaInicio: tomorrow.toDateString() + " EDT",
+      fechaTermino: oneYear.toDateString() + " EDT",
       frecuencia: "MENSUAL"
     }
   };
@@ -93,22 +94,30 @@ chrome.runtime.onInstalled.addListener(function () {
 
 chrome.tabs.onUpdated.addListener(function () {
   
-  // Inject id when page update extension is active into page
-  var my_id = chrome.runtime.id;
-  chrome.tabs.executeScript({
-    code: `location.href="javascript:window.autopac_extension_id='${my_id}';void 0";`
-  });
+  getMatches(page_matches => {
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      var myTab = tabs[0];
 
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    var myTab = tabs[0];
-    getRequesters(requesters => {
-      // Select the HTML popup for each page
-      if (myTab.url.match(new RegExp(requesters))) {
-        chrome.pageAction.setPopup({ tabId: myTab.id, popup: 'src/browser_action/fintual_action.html' });
+      // Listen only if page is defined in active_pages
+      if (myTab.url.match(new RegExp(page_matches))){
+
+        // Inject id when page update extension is active into page
+        var my_id = chrome.runtime.id;
+        chrome.tabs.executeScript({
+          code: `location.href="javascript:window.autopac_extension_id='${my_id}';void 0";`
+        });
+
+        getRequesters(requesters => {
+          // Select the HTML popup for each page
+          if (myTab.url.match(new RegExp(requesters))) {
+            chrome.pageAction.setPopup({ tabId: myTab.id, popup: 'src/browser_action/fintual_action.html' });
+          }
+          else {
+            chrome.pageAction.setPopup({ tabId: myTab.id, popup: 'src/browser_action/bank_action.html' });
+          }
+        });
       }
-      else {
-        chrome.pageAction.setPopup({ tabId: myTab.id, popup: 'src/browser_action/bank_action.html' });
-      }
+      
     });
   });
 });
