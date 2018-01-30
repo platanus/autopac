@@ -23,7 +23,7 @@ function getDefault() {
     },
     monto: 50001,
     programacion: {
-      //TODO explain this shit, trick
+      // Asdsdsd
       fechaInicio: tomorrow.toDateString() + " EDT",
       fechaTermino: oneYear.toDateString() + " EDT",
       frecuencia: "MENSUAL"
