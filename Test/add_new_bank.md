@@ -6,7 +6,7 @@
 
 * El atributo type en ```active_pages.json``` identifica el tipo de página, en nuestro caso contamos solo con bancos y FINTUAL, esta ultima tiene el tipo "externo". Este identificador permite cambiar los popups de la extensión dependiendo su tipo.
 
-* Si se desea agregar más tipos y nuevos popup lo primero es agregar un HTML en ```/src/browser_action``` y luego agregar el caso especifico, dentro del listener ```chrome.tabs.onUpdated``` ubicado en ```/bg/background.js``` . Luego se debe crear un archivo *.js para el nuevo HTML que imite el comportamiento de los popups ya existentes.
+* Si se desea agregar más tipos y nuevos popup lo primero es agregar un HTML en ```/src/browser_action``` y luego agregar el caso especifico, dentro del listener ```chrome.tabs.onUpdated``` ubicado en ```/bg/background.js``` . Finalmente se debe crear un archivo *.js para el nuevo HTML que imite el comportamiento de los popups ya existentes.
 
 ## Lógica de la extensión
 
@@ -24,7 +24,7 @@
 
 ## Pasos finales
 
-* Por último es necesario volver al manifest y agregar los match y los scripts que necesita la página. Dentro de content script es necesario agregar el match para el banco con su respectivo inject, luego se debe agregar el ```<banco>_fun.js``` dentro de ```web_accesible_resources```, para que la página pueda acceder a las funciones insertadas desde la extensión y finalmente se deben a agregar las páginas que pueden acceder a los datos en **externally_connectable** dentro del manifest (acá se encuentran las páginas de los bancos y las paginas que pueden modificar los datos de la extensión, en neustro caso FINTUAL).
+* Por último es necesario volver al manifest y agregar los match y los scripts que necesita la página. Dentro de content script es necesario agregar el match para el banco con su respectivo inject, luego se debe agregar el ```<banco>_fun.js``` dentro de ```web_accesible_resources```, para que la página pueda acceder a las funciones insertadas desde la extensión y finalmente se deben a agregar las páginas que pueden acceder a los datos en **externally_connectable** dentro del manifest (acá se encuentran las páginas de los bancos y las paginas que pueden modificar los datos de la extensión, en nuestro caso FINTUAL).
 
 * También es posible cambiar los datos default del storage, estos se encuentran en ```src/bg/background.js```
 
