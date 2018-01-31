@@ -100,13 +100,13 @@ function fillButton() {
 //Santander dont change its URL, need a fun
 function santanderForm(form_url) {
   chrome.tabs.executeScript({
+    // execute function in santander_fun
     code: 'location.href="javascript:goToSantanderForm(); void 0";'
   });
 }
 
 //go to url
 function genericForm(form_url) {
-
   // Always refresh page
   chrome.tabs.update({
     url: form_url

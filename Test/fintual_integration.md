@@ -14,4 +14,6 @@
 
 * Es importante validar tu página con google, y agregar el archivo html entregado por este en el directorio local de la página.
 
-* Notar que es posible que Google store identifique la extension como "peligrosa", lo que desactivaria inline installation. Cuando ocurre esto dicha función se reemplaza por la istalación normal, por lo que en ningún momento se pierde esta funcionalidad por completo.
+* Notar que es posible que Google store identifique la extensión como "peligrosa" o la página con inline installation como sospechosa, lo que desactivaría inline installation. Cuando ocurre esto dicha función se reemplaza por la instalación normal, por lo que en ningún momento se pierde esta funcionalidad por completo (si se desactiva este tipo de instalación sera necesario recargar las páginas para poder ejecutar la extensión).
+
+* Hay un bug que se presenta con algunos usuarios de banco Santander, los cuales no pueden realizar transferencias por la pagina web de manera normal (esto es un problema de la página del banco y no se relaciona con la extensión). En estos casos se utiliza una sesion en incógnito y se debe activar la extensión Para que funcione en dicho modo.
