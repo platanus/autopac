@@ -7,28 +7,28 @@
 
   <script src="bank_action.js"></script>
   <script src="../../js/jquery-3.2.1.min.js"></script>
-  <script src="../../js/mdl/material.min.js"></script>
-  <link rel="stylesheet" href="../../js/mdl/material.min.css">
   </script>
 </head>
 
 <body>
-  <span id="appinfo"><span id="appname"></span> <span id="version"></span></span>
-
   <div id="mainPopup">
-    <div id="main-button-div" class="mdl-dialog__content">
-      <button id="mainButton" class="mdl-button
-                           mdl-button--raised
-                           mdl-button--colored">
-                    AutoPAC
-            </button>
+    <div>
+        <input id="requester" value="https://fintual.cl/" readonly="readonly">
+    </div>
+    <div>
+      <p id="text-holder">
+          Continúa para agendar tu transferencia mensual hacia:
+          <br>
+      </p>
     </div>
 
-    </button>
-    <div id="text-holder" class="mdl-dialog__content">
-      <p>
-        Datos del depósito <br><br> Depósito mensual: 50 000 <br> Primer depósito: 1-1-2018 <br> Duración: Indefinida <br>
-      </p>
+    <div id="main-button-div" >
+      <button id="main-button" >
+        Agendar
+      </button>
+      <button id="ok-button" style="display: none;">
+        OK
+      </button>
     </div>
   </div>
 </body>

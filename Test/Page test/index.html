@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="./index.js" defer></script>
+	<title>AutoPac Options</title>
+	<link rel="chrome-webstore-item"
+    		href="https://chrome.google.com/webstore/detail/gnhmemcbpgpoldkclcllbakonfeokdjd">
+
+</head>
+<body>
+	
+<form action="">
+	Monto:<br>
+	<input type="number" id="monto" value="10">
+	<br>
+	Nombre Destinatario:<br>
+	<input type="text" id="nombreDestinatario" value="from fintual page">
+	<br>
+	Rut Destinatario:<br>
+	<input type="text" id="rutDestinatario" value="11.658.094-2">
+	<br>
+	Banco Destinatario:<br>
+	<input type="text" id="bancoDestinatario" value="banco de chile">
+	<br>
+	Numero de Cuenta Destinatario:<br>
+	<input type="text" id="numeroCuentaDestinatario" value="22222">
+	<br>
+	Tipo de Cuenta Destinatario:<br>
+	<select id="tipoCuentaDestinatario">
+		<option selected="selected">corriente</option>
+		<option>corriente</option>
+		<option>vista</option>
+		<option>ahorro</option>
+	</select>
+	<br>
+	Mail Destinatario:<br>
+	<input type="text" id="mailDestinatario" value="test@test-cl">
+	<br>
+	Fecha Inicio:<br>
+	<input type="date" id="fechaInicio" value="2018-05-05">
+	<br>
+	Fecha Termino:<br>
+	<input type="date" id="fechaTermino" value="2019-05-05">
+	<br>
+	Frecuencia:
+	<br>
+	<select id="frecuencia" value="mensual">
+		<option selected="selected">mensual</option>
+		<option>trimestral</option>
+		<option>semestral</option>
+	</select>
+	<br>
+	<input type="button" value="Send" id="send">
+	<br>
+	<input type="button" value="Install" id="install"> 
+
+</form>
+</html>

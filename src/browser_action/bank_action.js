@@ -6,7 +6,7 @@ function getPage(callback) {
   chrome.tabs.query({
     active: true,
     currentWindow: true
-  }, function(tabs) {
+  }, function (tabs) {
     tabURL = tabs[0].url;
     tabTitle = tabs[0].title;
     $.getJSON('active_pages.json', json => {
@@ -27,18 +27,18 @@ function getPage(callback) {
   });
 }
 
-//map with the funtion names
+//map with the function names
 var map = {
-    santander: "santanderForm",
-    bancochile: "genericForm"
+  santander: "santanderForm",
+  bancochile: "genericForm"
 };
 
 //Open form in the same tab
-function openForm(json,bank_key) {
+function openForm(json, bank_key) {
   // Open in the same tab the form to fill
   //console.log(json[bank_key].name);
 
-  //Get the funtion of the bank
+  //Get the function for the bank
   var my_bank_fun = map[bank_key];
   //Get the form url for my bank (if exist)
   var form_url = json[bank_key].form_url;
@@ -48,44 +48,82 @@ function openForm(json,bank_key) {
 }
 
 // Add listener for main button
-document.addEventListener('DOMContentLoaded', function() {
-  var mainButton = document.getElementById('mainButton');
+document.addEventListener('DOMContentLoaded', function () {
+
+  var mainButton = document.getElementById('main-button');
 
   getPage(bank_name => {
     $.getJSON("active_pages.json", json => {
-      document.getElementById("text-holder").innerHTML += "<p> Origen:" + json[bank_name].name + "</p>";
 
-
+      chrome.storage.sync.get('transfer', result => {
+        var transferencia = result.transfer;
+        document.getElementById("text-holder").innerHTML += "<br>" + transferencia.destinatario.nombre + "<br> RUT: " + transferencia.destinatario.rut + "<br> Monto: " + transferencia.monto;
+      });
       // onClick's logic below:
-      mainButton.addEventListener('click', function() {
-        // Open form to fill in the same tab
+      mainButton.addEventListener('click', function () {
+        // Open form to fill in the same tab        
         openForm(json, bank_name);
 
         //wait until the page is loaded
         setTimeout(() => {
           fillButton();
-        }, 3000);
+        }, 4000);
       });
     });
   });
+});
 
+// Add listener for OK button
+document.addEventListener('DOMContentLoaded', function () {
+  var okButton = document.getElementById('ok-button');
+
+  // onClick's logic below:
+  okButton.addEventListener('click', function () {
+    //Close popup
+    window.close();
+  });
 });
 
 function fillButton() {
   chrome.tabs.executeScript({
-    code: 'location.href="javascript:fill_my_form(); void 0";'
+    code: `location.href="javascript:               \
+                          try {                     \
+                            fill_my_form();         \
+                            void 0;                 \
+                          }                         \
+                          catch (err) {             \
+                            chrome.runtime.sendMessage(autopac_extension_id, { type: 'autopac_page_error' }, function (response) {});\
+                          }";`
   });
 }
 
 //Santander dont change its URL, need a fun
 function santanderForm(form_url) {
   chrome.tabs.executeScript({
+    // execute function in santander_fun
     code: 'location.href="javascript:goToSantanderForm(); void 0";'
   });
 }
 
+//go to url
 function genericForm(form_url) {
+  // Always refresh page
   chrome.tabs.update({
     url: form_url
   });
 }
+
+//Listener for errors in the page, only listen when popup is open
+chrome.runtime.onMessageExternal.addListener(
+  function (request, sender, sendResponse) {
+
+    if (request.type == "autopac_page_error") {
+      document.getElementById("text-holder").innerHTML = "Error <br> No se pudo completar el formulario";
+    }
+    if (request.type == "autopac_page_ok") {
+      document.getElementById("text-holder").innerHTML = "El formulario se ha completado con éxito. <br> Sigue el proceso en la página de tu banco para confirmar.";
+    }
+    document.getElementById("main-button").style.display = "none";
+    document.getElementById("ok-button").style.display = "inline";
+    return true
+  });
